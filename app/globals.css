@@ -5,6 +5,11 @@
 html {
   scroll-behavior: smooth;
   background-color: #0f1117;
+  overflow-x: hidden;
+}
+
+body {
+  overflow-x: hidden;
 }
 
 @media (prefers-reduced-motion: reduce) {

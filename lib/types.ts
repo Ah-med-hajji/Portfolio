@@ -49,3 +49,17 @@ export interface SocialLink {
   href: string;
   icon: string;
 }
+
+export interface StatItem {
+  value: number;
+  suffix: string;
+  label: string;
+}
+
+export interface Testimonial {
+  quote: string;
+  name: string;
+  role: string;
+  company: string;
+  rating: number;
+}

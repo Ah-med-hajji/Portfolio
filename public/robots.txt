@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://ahmed-hajji-it.vercel.app/sitemap.xml

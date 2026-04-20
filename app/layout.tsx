@@ -6,6 +6,11 @@ import {
   META_DESCRIPTION,
   META_URL,
 } from "@/lib/constants";
+import ProgressBar from "@/components/ui/ProgressBar";
+import BackToTop from "@/components/ui/BackToTop";
+import PageLoader from "@/components/ui/PageLoader";
+import ToastContainer from "@/components/ui/Toast";
+import CursorGlow from "@/components/ui/CursorGlow";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -22,6 +27,9 @@ export const metadata: Metadata = {
   title: META_TITLE,
   description: META_DESCRIPTION,
   metadataBase: new URL(META_URL),
+  icons: { icon: "/favicon.svg" },
+  alternates: { canonical: META_URL },
+  robots: { index: true, follow: true },
   openGraph: {
     title: META_TITLE,
     description: META_DESCRIPTION,
@@ -46,7 +54,12 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} font-[family-name:var(--font-geist-sans)] antialiased`}
       >
+        <ProgressBar />
+        <PageLoader />
         {children}
+        <BackToTop />
+        <ToastContainer />
+        <CursorGlow />
       </body>
     </html>
   );

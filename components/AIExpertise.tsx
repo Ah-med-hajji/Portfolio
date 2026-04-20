@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { AI_HEADING, AI_TABS } from "@/lib/constants";
+import FadeInSection from "@/components/ui/FadeInSection";
 
 export default function AIExpertise() {
   const [activeTab, setActiveTab] = useState(AI_TABS[0].id);
@@ -11,20 +12,15 @@ export default function AIExpertise() {
   return (
     <section id="ai" className="px-6 py-24">
       <div className="mx-auto max-w-7xl">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mb-12 text-center"
-        >
+        <FadeInSection className="mb-12 text-center">
           <h2 className="mb-4 text-3xl font-bold text-white sm:text-4xl">
             AI Expertise
           </h2>
           <p className="mx-auto max-w-xl text-purple-400">{AI_HEADING}</p>
-        </motion.div>
+        </FadeInSection>
 
         {/* Tabs */}
-        <div className="mb-8 flex justify-center gap-2">
+        <FadeInSection className="mb-8 flex justify-center gap-2">
           {AI_TABS.map((tab) => (
             <button
               key={tab.id}
@@ -43,24 +39,26 @@ export default function AIExpertise() {
               <span className="relative z-10">{tab.label}</span>
             </button>
           ))}
-        </div>
+        </FadeInSection>
 
         {/* Tab content */}
-        <motion.div
-          key={current.id}
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3 }}
-          className="mx-auto max-w-2xl rounded-2xl border border-purple-400/10 bg-purple-400/[0.03] p-8 text-center"
-        >
-          <h3 className="mb-3 text-xl font-semibold text-white">
-            {current.title}
-          </h3>
-          <p className="leading-relaxed text-gray-400">{current.description}</p>
-        </motion.div>
+        <FadeInSection>
+          <motion.div
+            key={current.id}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3 }}
+            className="mx-auto max-w-2xl rounded-2xl border border-purple-400/10 bg-purple-400/[0.03] p-8 text-center"
+          >
+            <h3 className="mb-3 text-xl font-semibold text-white">
+              {current.title}
+            </h3>
+            <p className="leading-relaxed text-gray-400">{current.description}</p>
+          </motion.div>
+        </FadeInSection>
 
         {/* Teach CTA */}
-        <div className="mt-12 text-center">
+        <FadeInSection className="mt-12 text-center">
           <p className="mb-4 text-gray-400">
             I also teach this — hands-on, tailored to your team.
           </p>
@@ -70,7 +68,7 @@ export default function AIExpertise() {
           >
             Book an AI Consultation
           </a>
-        </div>
+        </FadeInSection>
       </div>
     </section>
   );

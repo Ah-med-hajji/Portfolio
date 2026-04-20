@@ -12,6 +12,15 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   Brain,
 };
 
+export const cardVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: { delay: i * 0.1, duration: 0.5 },
+  }),
+};
+
 interface ServiceCardProps {
   service: ServiceData;
   index: number;
@@ -22,12 +31,17 @@ export default function ServiceCard({ service, index }: ServiceCardProps) {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      custom={index}
+      variants={cardVariants}
+      initial="hidden"
+      whileInView="visible"
       viewport={{ once: true }}
-      transition={{ delay: index * 0.1, duration: 0.5 }}
-      whileHover={{ y: -6, boxShadow: `0 0 24px rgba(56,189,248,0.15)` }}
-      className="group rounded-2xl border border-white/5 bg-white/[0.02] p-6 transition-colors hover:border-cyan-400/30"
+      whileHover={{
+        scale: 1.02,
+        borderColor: "rgba(56,189,248,0.4)",
+        boxShadow: "0 0 20px rgba(56,189,248,0.15)",
+      }}
+      className="group rounded-2xl border border-white/5 bg-white/[0.02] p-6 transition-colors"
     >
       <div className="mb-4 inline-flex rounded-lg bg-cyan-400/10 p-3 text-cyan-400 transition-colors group-hover:bg-cyan-400/20">
         <Icon className="h-6 w-6" />

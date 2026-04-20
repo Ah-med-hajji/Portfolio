@@ -7,11 +7,13 @@ import type {
   AITab,
   ContactSubject,
   SocialLink,
+  StatItem,
+  Testimonial,
 } from "./types";
 
 // ─── IDENTITY ───
-export const SITE_NAME = "[YOUR NAME]";
-export const SITE_INITIALS = "YN";
+export const SITE_NAME = "Ahmed Hajji";
+export const SITE_INITIALS = "AH";
 export const TAGLINE = "Full-Stack Developer · DevOps · AI Consultant";
 export const SUB_TAGLINE =
   "I build, deploy, automate, and teach — end to end.";
@@ -221,7 +223,7 @@ export const BOOKING_OPTIONS: BookingOption[] = [
   },
 ];
 
-export const CALENDLY_URL = "https://calendly.com/yourusername";
+export const CALENDLY_URL = "https://calendly.com/ahmedhajji5401";
 
 // ─── STACK ───
 export const STACK: StackCategory[] = [
@@ -261,10 +263,10 @@ export const CONTACT_SUBJECTS: ContactSubject[] = [
   { label: "DevOps Audit", value: "devops" },
   { label: "Other", value: "other" },
 ];
-export const FORMSPREE_ID = "YOUR_FORMSPREE_ID";
-export const EMAIL = "hello@yourdomain.com";
-export const GITHUB_URL = "https://github.com/YOUR_GITHUB_USERNAME";
-export const LINKEDIN_URL = "https://linkedin.com/in/YOUR_LINKEDIN";
+export const FORMSPREE_ID = "xeevlgdl";
+export const EMAIL = "ahmedhajji5401@gmail.com";
+export const GITHUB_URL = "https://github.com/Ah-med-hajji";
+export const LINKEDIN_URL = "https://linkedin.com/in/hajjiahmed";
 
 // ─── SOCIAL LINKS ───
 export const SOCIAL_LINKS: SocialLink[] = [
@@ -277,5 +279,74 @@ export const SOCIAL_LINKS: SocialLink[] = [
 export const META_TITLE = `${SITE_NAME} — ${TAGLINE}`;
 export const META_DESCRIPTION =
   "Full-stack developer, DevOps engineer, and AI consultant. I build, deploy, automate, and teach — end to end.";
-export const META_URL = "https://yourdomain.com";
+export const META_URL = "https://ahmed-hajji-it.vercel.app";
 export const META_OG_IMAGE = "/og-image.png";
+
+// ─── STATS ───
+export const STATS: StatItem[] = [
+  { value: 5, suffix: "+", label: "Years Experience" },
+  { value: 20, suffix: "+", label: "Projects Delivered" },
+  { value: 10, suffix: "+", label: "Happy Clients" },
+  { value: 3, suffix: "", label: "Service Areas" },
+];
+
+// ─── TESTIMONIALS ───
+export const TESTIMONIALS: Testimonial[] = [
+  {
+    quote:
+      "Ahmed delivered our full-stack app ahead of schedule. His DevOps knowledge meant we shipped to production on day one with zero downtime.",
+    name: "Sarah M.",
+    role: "CTO",
+    company: "TechStart Inc.",
+    rating: 5,
+  },
+  {
+    quote:
+      "The AI training session transformed how our team uses LLMs. We cut our API costs by 40% just from the prompt engineering module.",
+    name: "David K.",
+    role: "Product Manager",
+    company: "DataFlow Labs",
+    rating: 5,
+  },
+  {
+    quote:
+      "The infrastructure audit paid for itself in a week. Ahmed identified bottlenecks we didn't even know existed and gave us a clear fix.",
+    name: "Rina P.",
+    role: "Founder",
+    company: "ScaleUp Agency",
+    rating: 5,
+  },
+];
+
+// ─── STACK TOOLTIPS ───
+export const STACK_TOOLTIPS: Record<string, string> = {
+  React: "Building dynamic UIs and SPAs",
+  "Next.js": "Full-stack framework for production apps",
+  TypeScript: "Type-safe code for fewer bugs",
+  Tailwind: "Utility-first CSS for rapid styling",
+  "Framer Motion": "Smooth animations and transitions",
+  "Node.js": "Server-side JS for APIs and backends",
+  Express: "Minimal API framework for Node.js",
+  Python: "Scripting, automation, and data pipelines",
+  REST: "Designing clean, RESTful APIs",
+  GraphQL: "Flexible querying for complex data needs",
+  PostgreSQL: "Relational DB for structured data",
+  MongoDB: "Document DB for flexible schemas",
+  Supabase: "Open-source Firebase alternative",
+  Redis: "In-memory caching and sessions",
+  Docker: "Containerizing apps for consistent deploys",
+  "GitHub Actions": "CI/CD pipelines for automated workflows",
+  Nginx: "Reverse proxy and static serving",
+  Linux: "Server administration and shell scripting",
+  Bash: "Automation scripts and DevOps tooling",
+  "OpenAI API": "GPT-4 and DALL-E integrations",
+  "Claude API": "Anthropic model integrations",
+  LangChain: "Building LLM-powered chains and agents",
+  "Hugging Face": "Open-source ML models and pipelines",
+  Git: "Version control and collaboration",
+  Figma: "Design handoff and prototyping",
+  Postman: "API testing and documentation",
+  "VS Code": "Primary editor with custom config",
+  n8n: "Self-hosted workflow automation",
+  Zapier: "No-code app integrations",
+};

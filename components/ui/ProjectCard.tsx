@@ -16,11 +16,14 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.95 }}
-      transition={{ delay: index * 0.05, duration: 0.35 }}
-      whileHover={{ y: -6, boxShadow: `0 0 24px rgba(56,189,248,0.12)` }}
-      className="group flex flex-col overflow-hidden rounded-2xl border border-white/5 bg-white/[0.02] transition-colors hover:border-cyan-400/30"
+      transition={{ delay: index * 0.1, duration: 0.35 }}
+      whileHover={{
+        scale: 1.02,
+        borderColor: "rgba(56,189,248,0.4)",
+        boxShadow: "0 0 20px rgba(56,189,248,0.15)",
+      }}
+      className="group flex flex-col overflow-hidden rounded-2xl border border-white/5 bg-white/[0.02] transition-colors"
     >
-      {/* Gradient placeholder for screenshot */}
       <div className="h-44 w-full bg-gradient-to-br from-cyan-500/20 via-purple-500/10 to-transparent" />
 
       <div className="flex flex-1 flex-col p-5">
