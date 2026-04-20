@@ -5,7 +5,6 @@ import {
   META_TITLE,
   META_DESCRIPTION,
   META_URL,
-  META_OG_IMAGE,
 } from "@/lib/constants";
 
 const geistSans = localFont({
@@ -28,14 +27,12 @@ export const metadata: Metadata = {
     description: META_DESCRIPTION,
     url: META_URL,
     siteName: META_TITLE,
-    images: [{ url: META_OG_IMAGE, width: 1200, height: 630 }],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
     title: META_TITLE,
     description: META_DESCRIPTION,
-    images: [META_OG_IMAGE],
   },
 };
 
