@@ -318,6 +318,8 @@ export const EXPERIENCE = [
       { value: "10+", label: "Countries Served" },
       { value: "100%", label: "Remote & Async" },
       { value: "1", label: "Silicon Valley Co." },
+      { value: "Onboarding", label: "New Crew Members" },
+      { value: "ERP", label: "Workshops & Training" },
     ],
   },
 ];
