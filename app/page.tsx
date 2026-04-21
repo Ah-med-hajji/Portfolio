@@ -9,6 +9,7 @@ import AIExpertise from "@/components/AIExpertise";
 import BookCall from "@/components/BookCall";
 import Stack from "@/components/Stack";
 import About from "@/components/About";
+import Experience from "@/components/Experience";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 
@@ -27,6 +28,7 @@ export default function Home() {
         <BookCall />
         <Stack />
         <About />
+        <Experience />
         <Contact />
       </main>
       <Footer />

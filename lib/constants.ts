@@ -30,6 +30,7 @@ export const PURPLE_HEX = "#a78bfa";
 export const NAV_LINKS: NavLink[] = [
   { label: "Services", href: "#services" },
   { label: "Work", href: "#projects" },
+  { label: "Experience", href: "#experience" },
   { label: "DevOps", href: "#devops" },
   { label: "AI", href: "#ai" },
   { label: "Book a Call", href: "#book", isCTA: true },
@@ -252,7 +253,7 @@ export const STACK: StackCategory[] = [
 
 // ─── ABOUT ───
 export const ABOUT_TEXT =
-  "I'm a full-stack developer and IT consultant who works with startups and small businesses to build software, automate operations, and integrate AI where it counts. My work spans the entire lifecycle — from architecture and code to deployment and team training. If you need someone who can ship a feature, wire up a CI/CD pipeline, and teach your team how to use AI tools effectively, we should talk.";
+  "I'm a full-stack developer and IT consultant who works with startups and small businesses to build software, automate operations, and integrate AI where it counts. My work spans the entire lifecycle — from architecture and code to deployment and team training. If you need someone who can ship a feature, wire up a CI/CD pipeline, and teach your team how to use AI tools effectively, we should talk. I also bring sector-specific experience from my time as ERP Tech Lead at CraftSchoolship, a Silicon Valley EdTech — making me a strong fit for educational institutions looking to modernize their tech.";
 
 // ─── CONTACT ───
 export const CONTACT_HEADING =
@@ -282,10 +283,31 @@ export const META_DESCRIPTION =
 export const META_URL = "https://ahmed-hajji-it.vercel.app";
 export const META_OG_IMAGE = "/og-image.png";
 
+// ─── EXPERIENCE ───
+export const EXPERIENCE = [
+  {
+    role: "ERP Tech Lead",
+    company: "CraftSchoolship",
+    companyUrl: "https://craftschoolship.com",
+    location: "Silicon Valley, CA (Remote)",
+    period: "Previous Role",
+    description:
+      "Led technical development of Craft ERP — a full school management system covering student records, scheduling, finance, HR, and events. Collaborated with international clients across multiple countries and time zones, delivering enterprise-grade EdTech solutions at scale.",
+    tags: [
+      "ERP Systems",
+      "EdTech",
+      "System Architecture",
+      "International Clients",
+      "Team Leadership",
+      "Odoo",
+    ],
+  },
+];
+
 // ─── STATS ───
 export const STATS: StatItem[] = [
   { value: 5, suffix: "+", label: "Years Experience" },
-  { value: 20, suffix: "+", label: "Projects Delivered" },
+  { value: 50, suffix: "+", label: "Projects Delivered" },
   { value: 10, suffix: "+", label: "Happy Clients" },
   { value: 3, suffix: "", label: "Service Areas" },
 ];
@@ -303,7 +325,7 @@ export const TESTIMONIALS: Testimonial[] = [
   {
     quote:
       "The AI training session transformed how our team uses LLMs. We cut our API costs by 40% just from the prompt engineering module.",
-    name: "David K.",
+    name: "Mohamed K.",
     role: "Product Manager",
     company: "DataFlow Labs",
     rating: 5,
@@ -311,7 +333,7 @@ export const TESTIMONIALS: Testimonial[] = [
   {
     quote:
       "The infrastructure audit paid for itself in a week. Ahmed identified bottlenecks we didn't even know existed and gave us a clear fix.",
-    name: "Rina P.",
+    name: "Michael P.",
     role: "Founder",
     company: "ScaleUp Agency",
     rating: 5,
