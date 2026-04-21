@@ -301,6 +301,24 @@ export const EXPERIENCE = [
       "Team Leadership",
       "Odoo",
     ],
+    modules: [
+      { icon: "Users", label: "Student Records" },
+      { icon: "Calendar", label: "Course Scheduling" },
+      { icon: "DollarSign", label: "Financial Management" },
+      { icon: "UserCog", label: "Human Resources" },
+      { icon: "CalendarDays", label: "Events Management" },
+      { icon: "BarChart2", label: "Analytics & Reporting" },
+      { icon: "BookOpen", label: "LMS Integration" },
+      { icon: "Bell", label: "Notifications System" },
+      { icon: "Shield", label: "Access Control" },
+      { icon: "Globe", label: "Multi-language Support" },
+    ],
+    stats: [
+      { value: "10+", label: "ERP Modules" },
+      { value: "10+", label: "Countries Served" },
+      { value: "100%", label: "Remote & Async" },
+      { value: "1", label: "Silicon Valley Co." },
+    ],
   },
 ];
 

@@ -63,3 +63,15 @@ export interface Testimonial {
   company: string;
   rating: number;
 }
+
+export interface ExperienceEntry {
+  role: string;
+  company: string;
+  companyUrl: string;
+  location: string;
+  period: string;
+  description: string;
+  tags: string[];
+  modules: { icon: string; label: string }[];
+  stats: { value: string; label: string }[];
+}
