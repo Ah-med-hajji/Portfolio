@@ -60,7 +60,7 @@ export default function Stack() {
               variants={itemVariants}
               className="rounded-2xl border border-white/5 bg-white/[0.02] p-6"
             >
-              <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-cyan-400">
+              <h3 className="mb-4 border-l-2 border-cyan-400 pl-3 text-sm font-semibold uppercase tracking-wider text-cyan-400">
                 {category.label}
               </h3>
               <div className="flex flex-wrap gap-2">

@@ -27,7 +27,6 @@ export interface NavLink {
 
 export interface BookingOption {
   title: string;
-  price: string;
   description: string;
   cta: string;
 }

@@ -203,21 +203,18 @@ export const AI_TABS: AITab[] = [
 export const BOOKING_OPTIONS: BookingOption[] = [
   {
     title: "Project Consultation",
-    price: "Free 30 min",
     description:
       "Discuss your project requirements, tech stack, and get a roadmap and estimate.",
     cta: "Book Free Call",
   },
   {
     title: "AI Training Session",
-    price: "Paid",
     description:
       "1-on-1 or team session. I teach prompt engineering, model selection, and AI workflow integration tailored to your business.",
     cta: "Book AI Session",
   },
   {
     title: "DevOps / Tech Audit",
-    price: "Paid",
     description:
       "I review your infrastructure, CI/CD, codebase, and deliver a written audit with prioritized recommendations.",
     cta: "Book Audit",
@@ -318,8 +315,6 @@ export const EXPERIENCE = [
       { value: "10+", label: "Countries Served" },
       { value: "100%", label: "Remote & Async" },
       { value: "1", label: "Silicon Valley Co." },
-      { value: "Onboarding", label: "New Crew Members" },
-      { value: "ERP", label: "Workshops & Training" },
     ],
   },
 ];
@@ -327,7 +322,7 @@ export const EXPERIENCE = [
 // ─── STATS ───
 export const STATS: StatItem[] = [
   { value: 5, suffix: "+", label: "Years Experience" },
-  { value: 50, suffix: "+", label: "Projects Delivered" },
+  { value: 20, suffix: "+", label: "Projects Delivered" },
   { value: 10, suffix: "+", label: "Happy Clients" },
   { value: 3, suffix: "", label: "Service Areas" },
 ];

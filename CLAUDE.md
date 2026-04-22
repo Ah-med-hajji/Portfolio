@@ -29,8 +29,8 @@
   Projects.tsx        — filterable project grid (FilterBar + ProjectCard)
   Testimonials.tsx    — 3 client testimonial cards
   DevOps.tsx          — pipeline visual + 3-column skills grid
-  AIExpertise.tsx     — tabbed AI section (prompt/tokens/workflow)
-  BookCall.tsx        — 3 booking cards + Calendly embed
+  AIExpertise.tsx     — two-column layout: neural-circuit SVG + tabbed AI section (prompt/tokens/workflow)
+  BookCall.tsx        — 3 booking cards + calendar CTA button (no embed)
   Stack.tsx           — tool grid with tooltips
   About.tsx           — short bio + CV download button
   Experience.tsx      — two-column: role info + modules grid + impact stats | browser mockup
@@ -39,10 +39,9 @@
 /components/ui
   FadeInSection.tsx   — reusable scroll animation (direction, delay, reduced-motion fallback)
   ServiceCard.tsx     — stagger variant card
-  ProjectCard.tsx     — layout-animated card with hover glow
+  ProjectCard.tsx     — layout-animated card with category-specific gradient placeholder + icon
   FilterBar.tsx       — animated pill filter (layoutId)
   TypewriterText.tsx  — cycling text effect
-  CalendlyEmbed.tsx   — dynamic import, client-side only
   BackToTop.tsx       — fixed bottom-right, appears after 400px
   ProgressBar.tsx     — reading progress bar, top of viewport
   PageLoader.tsx      — "AH" splash, 1.2s, sessionStorage flag
@@ -70,7 +69,7 @@
 6. Testimonials
 7. DevOps & Infrastructure
 8. AI Expertise
-9. Book a Consultation (+ Calendly)
+9. Book a Consultation (+ calendar CTA button)
 10. Tech Stack
 11. About
 12. Experience
@@ -90,14 +89,14 @@
 1. **Zero hardcoded strings** — all content in `lib/constants.ts`
 2. **No `any` types** — TypeScript strict mode
 3. **No component over 150 lines** — decompose if needed
-4. **Calendly embed** — must be dynamically imported (`next/dynamic`, `ssr: false`)
+4. **Calendly** — no embed; links open Calendly in a new tab via CTA button
 5. **Lucide icons** — no brand icons (GitHub, LinkedIn) in this version; use `Globe`, `User`, `Code` instead
 6. **Form** — uses Formspree with fetch API (not native action) for toast notifications
 7. **Avatar** — `/public/avatar.png` (not .jpg)
 8. **Experience section** — uses iframe for craftschoolship.com with styled fallback
 
 ## External Integrations
-- **Calendly:** https://calendly.com/ahmedhajji5401 (inline embed)
+- **Calendly:** https://calendly.com/ahmedhajji5401 (opens in new tab via CTA button)
 - **Formspree:** form ID `xeevlgdl`
 - **CraftSchoolship:** https://craftschoolship.com (loaded in iframe in Experience section)
 

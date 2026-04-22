@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ExternalLink, Code } from "lucide-react";
+import { ExternalLink, Code, Globe, Server, Brain, Workflow } from "lucide-react";
 import type { ProjectData } from "@/lib/types";
 
 interface ProjectCardProps {
@@ -9,7 +9,29 @@ interface ProjectCardProps {
   index: number;
 }
 
+const categoryStyles: Record<string, { gradient: string; Icon: React.ComponentType<{ className?: string }> }> = {
+  "Full-Stack": {
+    gradient: "from-[#0f1117] to-[#1a2744]",
+    Icon: Globe,
+  },
+  DevOps: {
+    gradient: "from-[#0f1117] to-[#0d2137]",
+    Icon: Server,
+  },
+  AI: {
+    gradient: "from-[#0f1117] to-[#1a1033]",
+    Icon: Brain,
+  },
+  Automation: {
+    gradient: "from-[#0f1117] to-[#0d1f1a]",
+    Icon: Workflow,
+  },
+};
+
 export default function ProjectCard({ project, index }: ProjectCardProps) {
+  const style = categoryStyles[project.category];
+  const PlaceholderIcon = style?.Icon ?? Code;
+
   return (
     <motion.div
       layout
@@ -24,7 +46,9 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
       }}
       className="group flex flex-col overflow-hidden rounded-2xl border border-white/5 bg-white/[0.02] transition-colors"
     >
-      <div className="h-44 w-full bg-gradient-to-br from-cyan-500/20 via-purple-500/10 to-transparent" />
+      <div className={`relative flex h-44 w-full items-center justify-center bg-gradient-to-br ${style?.gradient ?? "from-[#0f1117] to-[#1a1a2e]"}`}>
+        <PlaceholderIcon className="h-10 w-10 text-white/10" />
+      </div>
 
       <div className="flex flex-1 flex-col p-5">
         <span className="mb-2 w-fit rounded-full bg-cyan-400/10 px-2.5 py-0.5 text-xs font-medium text-cyan-400">

@@ -1,13 +1,9 @@
 "use client";
 
-import dynamic from "next/dynamic";
+import { motion } from "framer-motion";
+import { CalendarDays } from "lucide-react";
 import { BOOKING_OPTIONS, CALENDLY_URL } from "@/lib/constants";
 import FadeInSection from "@/components/ui/FadeInSection";
-
-const CalendlyEmbed = dynamic(
-  () => import("@/components/ui/CalendlyEmbed"),
-  { ssr: false }
-);
 
 export default function BookCall() {
   return (
@@ -28,9 +24,6 @@ export default function BookCall() {
           {BOOKING_OPTIONS.map((opt, i) => (
             <FadeInSection key={opt.title} delay={i * 0.1}>
               <div className="flex h-full flex-col rounded-2xl border border-white/5 bg-white/[0.02] p-6">
-                <span className="mb-1 text-xs font-medium uppercase tracking-wider text-cyan-400">
-                  {opt.price}
-                </span>
                 <h3 className="mb-2 text-lg font-semibold text-white">
                   {opt.title}
                 </h3>
@@ -50,10 +43,26 @@ export default function BookCall() {
           ))}
         </div>
 
-        {/* Calendly inline embed */}
+        {/* Calendar CTA */}
         <FadeInSection>
-          <div className="overflow-hidden rounded-2xl border border-white/5 bg-white/[0.02] p-2">
-            <CalendlyEmbed />
+          <div className="border-t border-white/10 pt-10 text-center">
+            <p className="mb-6 text-sm text-gray-400">
+              Ready to talk? Pick a time that works for you.
+            </p>
+            <motion.a
+              href={CALENDLY_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+              className="inline-flex items-center gap-2 rounded-full bg-[#38bdf8] px-8 py-4 text-sm font-semibold text-[#0f1117] transition-colors hover:bg-cyan-300"
+            >
+              <CalendarDays className="h-5 w-5" />
+              Open My Calendar →
+            </motion.a>
+            <p className="mt-4 text-xs text-gray-500">
+              Opens in a new tab · Free 30-min intro call available
+            </p>
           </div>
         </FadeInSection>
       </div>

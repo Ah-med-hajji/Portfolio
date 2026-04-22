@@ -27,7 +27,7 @@ export default function Hero() {
       {/* Radial glow */}
       <div className="pointer-events-none absolute left-1/2 top-1/2 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-400/5 blur-[120px]" />
 
-      <div className="relative z-10 mx-auto flex max-w-5xl flex-col items-center gap-10 lg:flex-row lg:justify-between">
+      <div className="relative z-10 mx-auto flex max-w-4xl flex-col items-center gap-6 lg:flex-row lg:justify-between lg:gap-8">
         {/* Text side */}
         <div className="flex-1 text-center lg:text-left">
           {/* Availability badge */}
