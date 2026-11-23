@@ -20,7 +20,7 @@
 - `lib/useCountUp.ts` — shared count-up animation hook
 
 ### Content sources
-- Facts come from the global CV (`public/cv/Ahmed_Hajji_IT_CV.pdf`, the only CV offered for download) and, for context only, the trainer CV kept off-site (`D:\Ahmed\Work\CV\Claude cv\Ahmed_Hajji_CV_Formateur_IA_DevOps_FR.pdf`). Course material lives on the owner's machine under `D:\Ahmed\Work\IT instructor`.
+- Facts come from the CVs. Four are offered for download, all generated from `cv-source/` (see CV pipeline below): Tech Lead CV EN/FR and AI & DevOps Trainer CV EN/FR. Course material lives on the owner's machine under `D:\Ahmed\Work\IT instructor`.
 - Agreed facts: 5+ years, 20+ projects, 10+ clients, 3 regions. CraftSchoolship 2022 – 2026 (years only, no months). TieUp: co-founder & CTO, relaunched and built entirely by Ahmed; repo private (no code link).
 - Do NOT add: fake testimonials, Atlas Ed (not ready), Marmaris Marble, Maryem Beauty Shop, Chouchene. BS Store only once bs-store.tn and its Supabase project are back online.
 - IZ Academy is shown as "production hardening" — never mention the specific critical vulnerability publicly.
@@ -35,11 +35,12 @@
   Training.tsx        — Training & Workshops: program cards with course covers, module strip (sm+), approach, AI certs, CTA
   Services.tsx        — 5 service cards (6-col grid on desktop, last two centred)
   Skills.tsx          — grouped skill chips
-  About.tsx           — bio, education, certifications, languages, CV download button (global CV only)
+  About.tsx           — bio, education, certifications, languages, CVDownloads (Tech Lead + Trainer CV, EN/FR each)
   Contact.tsx         — ContactForm + email copy + SocialLinks + Calendly booking options
   Footer.tsx          — nav links, socials, copyright
 /components/ui
   MobileMenu.tsx      — drawer rendered OUTSIDE <nav> (backdrop-filter would clip a fixed child), backdrop, scroll lock, Escape
+  CVDownloads.tsx     — one row per CV with EN / FR download buttons
   SectionHeader.tsx   — eyebrow + title + subtitle from SECTIONS
   HeroStats.tsx       — count-up stats (skipped under reduced motion)
   ProjectCard.tsx     — case-study card (role, period, summary, highlights, tags, optional live link)
@@ -62,7 +63,7 @@
   sitemap.ts          — sitemap.xml
 /public
   avatar.png, favicon.svg, robots.txt
-  cv/                 — downloadable CVs
+  cv/                 — generated CV PDFs (Ahmed_Hajji_CV_EN/FR, Ahmed_Hajji_Trainer_CV_EN/FR); old Ahmed_Hajji_IT_CV.pdf redirects to the EN CV (next.config.mjs)
   training/           — course covers (webp, compressed from the originals)
 /docs                 — README screenshots
 ```
@@ -104,6 +105,12 @@
 - **Formspree:** form ID `xeevlgdl`
 - **CraftSchoolship:** https://craftschoolship.com (linked from Work and Experience; no iframe)
 
+## CV pipeline
+- Content: `cv-source/content_global.py` (Tech Lead CV) and `cv-source/content_trainer.py` (Trainer CV), each with `EN` and `FR` dicts
+- Render: `python3 cv-source/render.py` (reportlab) writes all four PDFs to `public/cv/`
+- Fonts: Noto Serif TTFs in `cv-source/fonts/` (gitignored; from github.com/notofonts/notofonts.github.io, fonts/NotoSerif/hinted/ttf)
+- Both CVs include the phone number — they are public downloads
+
 ## Deployment
 - Push to `main` on GitHub auto-triggers Vercel build
 - Domain `ahmed-hajji-it.vercel.app` is permanently attached to the project
@@ -113,4 +120,4 @@
 ## Known follow-ups
 - Testimonials: add a section back only with real, attributable quotes
 - Atlas Ed / BS Store: add to Selected Work when live
-- Keep the CV PDF in `public/cv/` in sync with the site (years of experience, CraftSchoolship dates, TieUp CTO title)
+- Keep the CV content in `cv-source/content_*.py` in sync with `lib/constants.ts` (years of experience, CraftSchoolship dates, TieUp CTO title)

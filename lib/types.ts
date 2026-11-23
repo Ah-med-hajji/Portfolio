@@ -74,9 +74,15 @@ export interface EducationEntry {
   period: string;
 }
 
+export interface CVFile {
+  lang: string;
+  href: string;
+  ariaLabel: string;
+}
+
 export interface CVDownload {
   label: string;
-  href: string;
+  files: CVFile[];
 }
 
 export interface BookingOption {

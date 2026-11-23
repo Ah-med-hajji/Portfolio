@@ -1,4 +1,4 @@
-import { Download, GraduationCap, Award, Languages } from "lucide-react";
+import { GraduationCap, Award, Languages } from "lucide-react";
 import {
   SECTIONS,
   ABOUT_PARAGRAPHS,
@@ -8,9 +8,9 @@ import {
   CERTS,
   LANGUAGES_TITLE,
   LANGUAGES,
-  CV_DOWNLOADS,
 } from "@/lib/constants";
 import FadeInSection from "@/components/ui/FadeInSection";
+import CVDownloads from "@/components/ui/CVDownloads";
 import SectionHeader from "@/components/ui/SectionHeader";
 
 const cardClass = "rounded-2xl border border-white/5 bg-white/[0.02] p-5";
@@ -29,19 +29,7 @@ export default function About() {
                 <p key={p}>{p}</p>
               ))}
             </div>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-              {CV_DOWNLOADS.map((cv) => (
-                <a
-                  key={cv.href}
-                  href={cv.href}
-                  download
-                  className="inline-flex items-center justify-center gap-2 rounded-full border border-white/10 px-5 py-3 text-sm font-medium text-white transition-colors hover:border-cyan-400/40 hover:bg-white/5"
-                >
-                  <Download className="h-4 w-4 text-cyan-400" />
-                  {cv.label}
-                </a>
-              ))}
-            </div>
+            <CVDownloads />
           </FadeInSection>
         </div>
 

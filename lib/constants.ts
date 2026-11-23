@@ -410,8 +410,22 @@ export const CERTS: string[] = [
 ];
 export const LANGUAGES_TITLE = "Languages";
 export const LANGUAGES: string[] = ["Arabic — native", "English — C1 (TOEIC)", "French — fluent"];
+export const CV_DOWNLOADS_TITLE = "Download my CV";
 export const CV_DOWNLOADS: CVDownload[] = [
-  { label: "Download CV", href: "/cv/Ahmed_Hajji_IT_CV.pdf" },
+  {
+    label: "Tech Lead · DevOps & SRE",
+    files: [
+      { lang: "EN", href: "/cv/Ahmed_Hajji_CV_EN.pdf", ariaLabel: "Download Tech Lead CV in English" },
+      { lang: "FR", href: "/cv/Ahmed_Hajji_CV_FR.pdf", ariaLabel: "Télécharger le CV Tech Lead en français" },
+    ],
+  },
+  {
+    label: "AI & DevOps Trainer",
+    files: [
+      { lang: "EN", href: "/cv/Ahmed_Hajji_Trainer_CV_EN.pdf", ariaLabel: "Download AI & DevOps Trainer CV in English" },
+      { lang: "FR", href: "/cv/Ahmed_Hajji_Trainer_CV_FR.pdf", ariaLabel: "Télécharger le CV Formateur IA & DevOps en français" },
+    ],
+  },
 ];
 
 // ─── CONTACT ───
