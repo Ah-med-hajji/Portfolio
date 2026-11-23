@@ -1,3 +1,61 @@
+export interface NavLink {
+  label: string;
+  href: string;
+  isCTA?: boolean;
+}
+
+export interface SectionCopy {
+  id: string;
+  eyebrow: string;
+  title: string;
+  subtitle: string;
+}
+
+export interface StatItem {
+  value: number;
+  suffix: string;
+  label: string;
+}
+
+export interface ProjectLink {
+  label: string;
+  href: string;
+}
+
+export interface ProjectData {
+  name: string;
+  role: string;
+  period: string;
+  summary: string;
+  highlights: string[];
+  tags: string[];
+  link?: ProjectLink;
+  featured?: boolean;
+}
+
+export interface ExperienceEntry {
+  role: string;
+  company: string;
+  companyUrl?: string;
+  location: string;
+  period: string;
+  current?: boolean;
+  points: string[];
+}
+
+export interface TrainingProgram {
+  title: string;
+  tagline: string;
+  cover: string;
+  coverAlt: string;
+  items: { title: string; detail: string }[];
+}
+
+export interface ModuleCover {
+  src: string;
+  alt: string;
+}
+
 export interface ServiceData {
   icon: string;
   title: string;
@@ -5,37 +63,26 @@ export interface ServiceData {
   tools: string[];
 }
 
-export interface ProjectData {
-  name: string;
-  description: string;
-  category: string;
-  tags: string[];
-  liveUrl: string;
-  githubUrl: string;
-}
-
-export interface StackCategory {
+export interface SkillGroup {
   label: string;
   items: string[];
 }
 
-export interface NavLink {
+export interface EducationEntry {
+  degree: string;
+  school: string;
+  period: string;
+}
+
+export interface CVDownload {
   label: string;
   href: string;
-  isCTA?: boolean;
 }
 
 export interface BookingOption {
   title: string;
   description: string;
   cta: string;
-}
-
-export interface AITab {
-  id: string;
-  label: string;
-  title: string;
-  description: string;
 }
 
 export interface ContactSubject {
@@ -46,31 +93,6 @@ export interface ContactSubject {
 export interface SocialLink {
   label: string;
   href: string;
-  icon: string;
-}
-
-export interface StatItem {
-  value: number;
-  suffix: string;
-  label: string;
-}
-
-export interface Testimonial {
-  quote: string;
-  name: string;
-  role: string;
-  company: string;
-  rating: number;
-}
-
-export interface ExperienceEntry {
-  role: string;
-  company: string;
-  companyUrl: string;
-  location: string;
-  period: string;
-  description: string;
-  tags: string[];
-  modules: { icon: string; label: string }[];
-  stats: { value: string; label: string }[];
+  icon: "Globe" | "User" | "Mail";
+  external: boolean;
 }

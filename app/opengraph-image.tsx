@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
+import { SITE_NAME, SITE_INITIALS, TAGLINE, SUB_TAGLINE, META_URL, META_TITLE } from "@/lib/constants";
 
-export const runtime = "edge";
-export const alt = "Ahmed Hajji — Full-Stack Developer · DevOps · AI Consultant";
+export const alt = META_TITLE;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -22,18 +22,6 @@ export default function OgImage() {
           padding: "60px",
         }}
       >
-        {/* Grid pattern */}
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            backgroundImage:
-              "linear-gradient(rgba(56,189,248,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(56,189,248,0.04) 1px, transparent 1px)",
-            backgroundSize: "48px 48px",
-            maskImage: "radial-gradient(ellipse at center, black, transparent 70%)",
-            opacity: 0.6,
-          }}
-        />
 
         {/* Initials badge */}
         <div
@@ -56,7 +44,7 @@ export default function OgImage() {
               color: "#38bdf8",
             }}
           >
-            AH
+            {SITE_INITIALS}
           </span>
         </div>
 
@@ -70,7 +58,7 @@ export default function OgImage() {
             letterSpacing: "-0.02em",
           }}
         >
-          Ahmed Hajji
+          {SITE_NAME}
         </div>
 
         {/* Tagline */}
@@ -81,7 +69,7 @@ export default function OgImage() {
             marginBottom: 36,
           }}
         >
-          Full-Stack Developer · DevOps · AI Consultant
+          {TAGLINE}
         </div>
 
         {/* Accent line */}
@@ -103,7 +91,7 @@ export default function OgImage() {
             textAlign: "center",
           }}
         >
-          I build, deploy, automate, and teach — end to end.
+          {SUB_TAGLINE}
         </div>
 
         {/* URL */}
@@ -115,7 +103,7 @@ export default function OgImage() {
             color: "#475569",
           }}
         >
-          ahmedhajji.dev
+          {META_URL.replace("https://", "")}
         </div>
       </div>
     ),

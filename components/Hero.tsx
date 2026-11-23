@@ -1,132 +1,113 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
-import { ChevronDown } from "lucide-react";
-import TypewriterText from "@/components/ui/TypewriterText";
+import { MapPin } from "lucide-react";
+import HeroStats from "@/components/ui/HeroStats";
 import {
-  HERO_CYCLING_TEXT,
-  HERO_SUBTITLE,
+  SITE_NAME,
+  TAGLINE,
+  SUB_TAGLINE,
+  HERO_BADGE,
+  HERO_LOCATION,
+  HERO_PITCH,
+  HERO_CTA_PRIMARY,
+  HERO_CTA_SECONDARY,
+  AVATAR_SRC,
+  AVATAR_ALT,
 } from "@/lib/constants";
 
 export default function Hero() {
-  const [hideScroll, setHideScroll] = useState(false);
-
-  useEffect(() => {
-    const onScroll = () => setHideScroll(window.scrollY > 100);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  const reduced = useReducedMotion();
+  const rise = (delay: number) => ({
+    initial: reduced ? { opacity: 0 } : { opacity: 0, y: 16 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.5, delay: reduced ? 0 : delay },
+  });
 
   return (
-    <section className="relative flex min-h-screen items-center justify-center overflow-hidden px-6 pt-20">
-      {/* Animated grid background */}
+    <section className="relative overflow-hidden px-6 pb-12 pt-28 lg:pt-36">
       <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(56,189,248,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(56,189,248,0.03)_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_at_center,black,transparent_70%)]" />
+      <div className="pointer-events-none absolute left-1/2 top-1/3 h-[420px] w-[420px] -translate-x-1/2 rounded-full bg-cyan-400/5 blur-[120px] sm:h-[600px] sm:w-[600px]" />
 
-      {/* Radial glow */}
-      <div className="pointer-events-none absolute left-1/2 top-1/2 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-400/5 blur-[120px]" />
-
-      <div className="relative z-10 mx-auto flex max-w-4xl flex-col items-center gap-6 lg:flex-row lg:justify-between lg:gap-8">
-        {/* Text side */}
-        <div className="flex-1 text-center lg:text-left">
-          {/* Availability badge */}
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="group relative mb-6 inline-flex items-center gap-2 rounded-full border border-white/5 bg-white/[0.03] px-4 py-1.5"
-          >
-            <span className="relative flex h-2.5 w-2.5">
-              <span className="absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75 [animation:ping_2s_cubic-bezier(0,0,0.2,1)_infinite]" />
-              <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-green-400" />
-            </span>
-            <span className="text-sm text-gray-300">Available for freelance work</span>
-            {/* Tooltip */}
-            <span className="pointer-events-none absolute -bottom-10 left-1/2 -translate-x-1/2 whitespace-nowrap rounded bg-white/10 px-3 py-1 text-xs text-gray-300 opacity-0 backdrop-blur transition-opacity group-hover:opacity-100">
-              Currently taking new projects — response within 24h
-            </span>
+      <div className="relative z-10 mx-auto max-w-6xl">
+        <div className="flex flex-col items-center gap-10 lg:flex-row-reverse lg:items-center lg:justify-between">
+          {/* Photo — first on mobile, right on desktop */}
+          <motion.div {...rise(0)} className="relative flex-shrink-0">
+            <div className="relative h-36 w-36 sm:h-44 sm:w-44 lg:h-64 lg:w-64">
+              <div className="absolute -inset-1 rounded-full bg-gradient-to-br from-cyan-400/60 to-purple-400/40 blur-md" />
+              <Image
+                src={AVATAR_SRC}
+                alt={AVATAR_ALT}
+                fill
+                priority
+                sizes="(min-width: 1024px) 256px, (min-width: 640px) 176px, 144px"
+                className="relative rounded-full border-2 border-[#0f1117] object-cover"
+              />
+            </div>
           </motion.div>
 
-          {/* Heading with typewriter */}
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="mb-6 text-4xl font-bold leading-tight text-white sm:text-5xl lg:text-6xl"
-          >
-            <TypewriterText strings={HERO_CYCLING_TEXT} />
-          </motion.h1>
-
-          {/* Subtitle */}
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="mx-auto mb-10 max-w-2xl text-lg leading-relaxed text-gray-400 lg:mx-0"
-          >
-            {HERO_SUBTITLE}
-          </motion.p>
-
-          {/* CTAs */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="flex flex-col items-center justify-center gap-4 sm:flex-row lg:justify-start"
-          >
-            <a
-              href="#projects"
-              className="rounded-full bg-cyan-400 px-6 py-3 text-sm font-semibold text-[#0f1117] transition-colors hover:bg-cyan-300"
+          {/* Text */}
+          <div className="max-w-2xl text-center lg:text-left">
+            <motion.div
+              {...rise(0.05)}
+              className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/5 bg-white/[0.03] px-4 py-1.5"
             >
-              See My Work
-            </a>
-            <a
-              href="#book"
-              className="rounded-full border border-white/10 px-6 py-3 text-sm font-medium text-white transition-colors hover:border-white/20 hover:bg-white/5"
+              <span className="relative flex h-2.5 w-2.5">
+                <span className="absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75 motion-safe:animate-ping" />
+                <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-green-400" />
+              </span>
+              <span className="text-sm text-gray-300">{HERO_BADGE}</span>
+            </motion.div>
+
+            <motion.h1
+              {...rise(0.1)}
+              className="mb-3 text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl"
             >
-              Book a Consultation
-            </a>
-          </motion.div>
+              {SITE_NAME}
+            </motion.h1>
+            <motion.p {...rise(0.15)} className="text-lg font-medium text-cyan-400 sm:text-xl">
+              {TAGLINE}
+            </motion.p>
+            <motion.p {...rise(0.15)} className="mb-6 text-base text-purple-300/90 sm:text-lg">
+              {SUB_TAGLINE}
+            </motion.p>
+
+            <motion.p {...rise(0.2)} className="mb-4 text-base leading-relaxed text-gray-400 sm:text-lg">
+              {HERO_PITCH}
+            </motion.p>
+            <motion.p
+              {...rise(0.2)}
+              className="mb-8 inline-flex items-center gap-1.5 text-sm text-gray-400"
+            >
+              <MapPin className="h-4 w-4 text-cyan-400" />
+              {HERO_LOCATION}
+            </motion.p>
+
+            <motion.div
+              {...rise(0.25)}
+              className="flex flex-col items-stretch gap-3 sm:flex-row sm:justify-center lg:justify-start"
+            >
+              <a
+                href={HERO_CTA_PRIMARY.href}
+                className="rounded-full bg-cyan-400 px-7 py-3 text-center text-sm font-semibold text-[#0f1117] transition-colors hover:bg-cyan-300"
+              >
+                {HERO_CTA_PRIMARY.label}
+              </a>
+              <a
+                href={HERO_CTA_SECONDARY.href}
+                className="rounded-full border border-white/10 px-7 py-3 text-center text-sm font-medium text-white transition-colors hover:border-white/20 hover:bg-white/5"
+              >
+                {HERO_CTA_SECONDARY.label}
+              </a>
+            </motion.div>
+          </div>
         </div>
 
-        {/* Profile photo */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="relative flex-shrink-0"
-        >
-          <div className="relative h-24 w-24 sm:h-28 sm:w-28 lg:h-[120px] lg:w-[120px]">
-            <div className="absolute inset-0 rounded-full border-[3px] border-[#38bdf8] shadow-[0_0_30px_rgba(56,189,248,0.3)] animate-pulse" />
-            <Image
-              src="/avatar.png"
-              alt="Ahmed Hajji"
-              fill
-              priority
-              unoptimized
-              className="rounded-full object-cover"
-            />
-          </div>
+        <motion.div {...rise(0.3)} className="mt-14">
+          <HeroStats />
         </motion.div>
       </div>
-
-      {/* Scroll indicator */}
-      {!hideScroll && (
-        <motion.a
-          href="#services"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1, y: [0, 8, 0] }}
-          transition={{
-            opacity: { delay: 1, duration: 0.5 },
-            y: { repeat: Infinity, duration: 1.5, ease: "easeInOut" },
-          }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 text-cyan-400/60"
-          aria-label="Scroll to services"
-        >
-          <ChevronDown className="h-8 w-8" />
-        </motion.a>
-      )}
     </section>
   );
 }

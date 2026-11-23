@@ -36,7 +36,3 @@ body {
   color: white;
 }
 
-/* Calendly dark theme overrides */
-.calendly-inline-widget {
-  color-scheme: dark;
-}

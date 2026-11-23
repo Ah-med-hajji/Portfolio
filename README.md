@@ -5,25 +5,23 @@
 **Built with Next.js 14 · Tailwind CSS · Framer Motion · Vercel**
 
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-Click%20Here-22C55E?style=for-the-badge&logo=vercel&logoColor=white)](https://ahmed-hajji-it.vercel.app)
-[![Performance](https://img.shields.io/badge/Performance-95+-22C55E?style=for-the-badge&logo=google&logoColor=white)](https://ahmed-hajji-it.vercel.app)
-[![Accessibility](https://img.shields.io/badge/Accessibility-100-22C55E?style=for-the-badge&logo=google&logoColor=white)](https://ahmed-hajji-it.vercel.app)
-[![MIT License](https://img.shields.io/badge/License-MIT-0A0A0A?style=for-the-badge&logo=opensourceinitiative&logoColor=white)](LICENSE)
 
 </div>
 
 ---
 
-## ✨ Features
+## ✨ Sections
 
-- ✅ **Services Showcase** — Full-Stack, DevOps, AI, Automation, Consulting
-- ✅ **Project Gallery** — Category filter with Framer Motion layout animations
-- ✅ **DevOps Pipeline Section** — Visual flow diagram of the full CI/CD process
-- ✅ **AI Expertise Section** — Tabbed interface covering prompt engineering, model selection, RAG, and training
-- ✅ **Book a Consultation** — Calendly embed ([https://calendly.com/ahmedhajji5401](https://calendly.com/ahmedhajji5401))
-- ✅ **Working Contact Form** — Powered by Formspree (ID: `xeevlgdl`)
-- ✅ **Dark Mode First** — Slate background + cyan accent + purple AI accent
-- ✅ **Fully Responsive** — 320px mobile to widescreen
-- ✅ **Easy Content Management** — All content editable from `/lib/constants.ts`
+1. **Hero** — name, role, positioning, key stats
+2. **Selected Work** — case studies: TieUp (co-founder & CTO), CabinAI, IZ Academy production hardening, Craft ERP (Odoo), client web apps
+3. **Experience** — timeline from CTO to internship
+4. **Training & Workshops** — AI and DevOps courses, teaching approach, AI certifications
+5. **Services** — full-stack, DevOps/SRE & cloud, security & reliability audits, ERP/Odoo, AI integration & training
+6. **Skills** — grouped toolbox
+7. **About** — bio, education, certifications, languages, CV downloads (EN + FR trainer CV)
+8. **Contact** — Formspree form + Calendly booking options
+
+All copy lives in `lib/constants.ts`. Fully responsive from 360px, `prefers-reduced-motion` respected.
 
 ---
 
@@ -53,7 +51,7 @@
 
 ### Prerequisites
 
-- Node.js 18+
+- Node.js 20+
 - npm or yarn
 
 ### Installation
@@ -76,11 +74,9 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ## 📸 Screenshots
 
-<!-- Replace with real screenshots once available -->
-
 | Desktop View | Mobile View |
 |-------------|-------------|
-| ![Desktop](https://placehold.co/800x450/1a1a2e/38BDF8?text=Desktop+Screenshot) | ![Mobile](https://placehold.co/400x710/1a1a2e/38BDF8?text=Mobile+Screenshot) |
+| ![Desktop](docs/desktop.webp) | ![Mobile](docs/mobile.webp) |
 
 ---
 
@@ -92,14 +88,6 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ## 👤 Author
 
-**Ahmed Hajji** — Full-Stack Developer · DevOps Engineer · AI Consultant
+**Ahmed Hajji** — Tech Lead · DevOps & SRE · AI Consultant & Trainer
 
 [🌐 Portfolio](https://ahmed-hajji-it.vercel.app) · [💼 LinkedIn](https://linkedin.com/in/hajjiahmed) · [📩 Email](mailto:ahmedhajji5401@gmail.com) · [📅 Book a Call](https://calendly.com/ahmedhajji5401)
-
----
-
-## 📄 License
-
-This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
-
-[![MIT License](https://img.shields.io/badge/License-MIT-0A0A0A?style=for-the-badge&logo=opensourceinitiative&logoColor=white)](LICENSE)
