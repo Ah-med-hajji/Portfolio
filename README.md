@@ -21,7 +21,7 @@
 7. **About** — bio, education, certifications, languages, CV downloads (Tech Lead and Trainer, English and French)
 8. **Contact** — Formspree form + Calendly booking options
 
-All copy lives in `lib/constants.ts`. Fully responsive from 360px, `prefers-reduced-motion` respected.
+English at `/`, French at `/fr`, case studies at `/work/tieup` and `/work/iz-academy`. All copy lives in `lib/content/en.ts` and `lib/content/fr.ts`. Live production status panel, ⌘K command palette, Vercel Analytics. Fully responsive from 360px, `prefers-reduced-motion` respected.
 
 ---
 

@@ -3,6 +3,7 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { Code2, Server, ShieldCheck, Boxes, Brain } from "lucide-react";
 import type { ServiceData } from "@/lib/types";
+import { trackSpotlight, SpotlightOverlay } from "@/components/ui/Spotlight";
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   Code2,
@@ -28,8 +29,10 @@ export default function ServiceCard({ service, index, className = "" }: ServiceC
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-60px" }}
       transition={{ duration: 0.5, delay: reduced ? 0 : (index % 3) * 0.1 }}
-      className={`group flex flex-col rounded-2xl border border-white/5 bg-white/[0.02] p-6 transition-[border-color,box-shadow] duration-300 hover:border-cyan-400/40 hover:shadow-[0_0_20px_rgba(56,189,248,0.15)] ${className}`}
+      onMouseMove={trackSpotlight}
+      className={`group relative flex flex-col rounded-2xl border border-white/5 bg-white/[0.02] p-6 transition-[border-color,box-shadow] duration-300 hover:border-cyan-400/40 hover:shadow-[0_0_20px_rgba(56,189,248,0.15)] ${className}`}
     >
+      <SpotlightOverlay />
       <div className="mb-4 inline-flex w-fit rounded-lg bg-cyan-400/10 p-3 text-cyan-400 transition-colors group-hover:bg-cyan-400/20">
         <Icon className="h-6 w-6" />
       </div>

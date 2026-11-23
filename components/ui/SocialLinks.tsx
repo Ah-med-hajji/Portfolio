@@ -1,6 +1,6 @@
 import { Globe, User, Mail } from "lucide-react";
-import { SOCIAL_LINKS } from "@/lib/constants";
 import type { SocialLink } from "@/lib/types";
+import { SOCIAL_LINKS } from "@/lib/content/shared";
 
 const icons: Record<SocialLink["icon"], React.ComponentType<{ className?: string }>> = {
   Globe,

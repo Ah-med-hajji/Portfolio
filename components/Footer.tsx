@@ -1,8 +1,8 @@
-import { SITE_NAME, TAGLINE, NAV_LINKS, FOOTER_BUILT_WITH } from "@/lib/constants";
 import SocialLinks from "@/components/ui/SocialLinks";
+import type { Content } from "@/lib/content";
 
-export default function Footer() {
-  const links = NAV_LINKS.filter((l) => !l.isCTA);
+export default function Footer({ c }: { c: Content }) {
+  const links = c.NAV_LINKS.filter((l) => !l.isCTA);
   const year = new Date().getFullYear();
 
   return (
@@ -11,10 +11,10 @@ export default function Footer() {
         <div className="flex flex-col items-center gap-8 text-center md:flex-row md:justify-between md:text-left">
           <div>
             <p className="text-lg font-bold text-white">
-              {SITE_NAME}
+              {c.SITE_NAME}
               <span className="text-cyan-400">.</span>
             </p>
-            <p className="text-sm text-gray-400">{TAGLINE}</p>
+            <p className="text-sm text-gray-400">{c.TAGLINE}</p>
           </div>
 
           <nav className="flex flex-wrap justify-center gap-x-5 gap-y-1">
@@ -33,7 +33,7 @@ export default function Footer() {
         </div>
 
         <p className="mt-8 text-center text-xs text-gray-500">
-          © {year} {SITE_NAME} · {FOOTER_BUILT_WITH}
+          © {year} {c.SITE_NAME} · {c.FOOTER_BUILT_WITH}
         </p>
       </div>
     </footer>

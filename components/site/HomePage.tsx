@@ -1,3 +1,4 @@
+import type { Content } from "@/lib/content";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import Projects from "@/components/Projects";
@@ -9,21 +10,21 @@ import About from "@/components/About";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 
-export default function Home() {
+export default function HomePage({ c }: { c: Content }) {
   return (
     <>
-      <Navbar />
+      <Navbar altHref={c.ALT_LANG.home} />
       <main>
         <Hero />
-        <Projects />
-        <Experience />
-        <Training />
-        <Services />
-        <Skills />
-        <About />
+        <Projects c={c} />
+        <Experience c={c} />
+        <Training c={c} />
+        <Services c={c} />
+        <Skills c={c} />
+        <About c={c} />
         <Contact />
       </main>
-      <Footer />
+      <Footer c={c} />
     </>
   );
 }

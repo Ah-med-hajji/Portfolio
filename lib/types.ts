@@ -1,3 +1,5 @@
+export type Lang = "en" | "fr";
+
 export interface NavLink {
   label: string;
   href: string;
@@ -22,6 +24,11 @@ export interface ProjectLink {
   href: string;
 }
 
+export interface ImageRef {
+  src: string;
+  alt: string;
+}
+
 export interface ProjectData {
   name: string;
   role: string;
@@ -30,7 +37,47 @@ export interface ProjectData {
   highlights: string[];
   tags: string[];
   link?: ProjectLink;
+  caseStudy?: ProjectLink;
+  image?: ImageRef;
   featured?: boolean;
+}
+
+export interface CaseStudySection {
+  heading: string;
+  body?: string;
+  points?: string[];
+}
+
+export interface ArchLayer {
+  label: string;
+  items: string[];
+}
+
+export interface CaseStudy {
+  slug: string;
+  name: string;
+  eyebrow: string;
+  title: string;
+  intro: string;
+  image: ImageRef;
+  link?: ProjectLink;
+  facts: { label: string; value: string }[];
+  metrics: { value: string; label: string }[];
+  architecture: { heading: string; caption: string; layers: ArchLayer[] };
+  sections: CaseStudySection[];
+}
+
+export interface AltLang {
+  code: string;
+  ariaLabel: string;
+  home: string;
+  prefix: string;
+}
+
+export interface StatusService {
+  id: string;
+  name: string;
+  detail: string;
 }
 
 export interface ExperienceEntry {

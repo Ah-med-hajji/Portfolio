@@ -14,8 +14,13 @@
 
 ## Architecture
 
-### Content Layer (ALL text lives here)
-- `lib/constants.ts` — every user-facing string: identity, nav, hero + stats, section headers (`SECTIONS`), projects, experience, training programs, services, skills, about/education/certs, CV downloads, contact form copy, booking options, metadata
+### Content Layer (ALL text lives here, in two languages)
+- `lib/content/en.ts` and `lib/content/fr.ts` — every user-facing string, same export names in both: identity, nav, hero + stats, `SECTIONS`, projects, `CASE_STUDIES`, status panel, command palette, experience, training, services, skills, about/CVs, contact, metadata. Edit BOTH files for any copy change; the `Content` type in `index.ts` fails the build if French is missing an entry
+- `lib/content/shared.ts` — language-independent values (name, links, email, Formspree ID, META_URL), re-exported by both
+- `lib/content/index.ts` — `getContent(lang)` and the `Content` type
+- `lib/content/context.tsx` — `ContentProvider` / `useContent()` for client components; server components take `c: Content` as a prop
+- In-page links are home-relative so they work from case-study pages: `/#work` (EN), `/fr#work` (FR — never `/fr/#…`, that redirects)
+- `lib/usePaletteItems.ts` — command palette actions
 - `lib/types.ts` — TypeScript interfaces for all data shapes
 - `lib/useCountUp.ts` — shared count-up animation hook
 
@@ -24,12 +29,14 @@
 - Agreed facts: 5+ years, 20+ projects, 10+ clients, 3 regions. CraftSchoolship 2022 – 2026 (years only, no months). TieUp: co-founder & CTO, relaunched and built entirely by Ahmed; repo private (no code link).
 - Do NOT add: fake testimonials, Atlas Ed (not ready), Marmaris Marble, Maryem Beauty Shop, Chouchene. BS Store only once bs-store.tn and its Supabase project are back online.
 - IZ Academy is shown as "production hardening" — never mention the specific critical vulnerability publicly.
+- TieUp's backend is deliberately paused (frontend loads without data); its payment provider is a stub — do not claim live payments. The mobile app is out of scope; describe TieUp as web app + admin dashboard + API.
+- Case-study facts come from the project repos (`../tieup-cross-platform` HANDOFF/AUDIT docs, `../iz/iz_academy` STATUS / "SRE & OP.md" / iz_review.pdf).
 
 ### Components
 ```
 /components
-  Navbar.tsx          — fixed, blur when scrolled, active-section underline; renders MobileMenu outside <nav>
-  Hero.tsx            — name as <h1>, tagline, pitch, location, CTAs, photo (/public/avatar.png, optimized by next/image), HeroStats
+  Navbar.tsx          — fixed, blur when scrolled, active-section underline, ⌘K button, EN/FR switch (`altHref` prop); renders MobileMenu outside <nav>
+  Hero.tsx            — name as <h1>, tagline, pitch, location, CTAs, photo, StatusPanel (under photo on desktop, after text on mobile), HeroStats
   Projects.tsx        — Selected Work: case-study grid, featured card spans 2 columns
   Experience.tsx      — vertical timeline of EXPERIENCE entries
   Training.tsx        — Training & Workshops: program cards with course covers, module strip (sm+), approach, AI certs, CTA
@@ -43,28 +50,38 @@
   CVDownloads.tsx     — one row per CV with EN / FR download buttons
   SectionHeader.tsx   — eyebrow + title + subtitle from SECTIONS
   HeroStats.tsx       — count-up stats (skipped under reduced motion)
-  ProjectCard.tsx     — case-study card (role, period, summary, highlights, tags, optional live link)
+  ProjectCard.tsx     — project card: optional screenshot, highlights, tags, case-study link, live link, spotlight hover
+  StatusPanel.tsx     — live production status from /api/status (up/down only; latency is too noisy to show)
+  CommandPalette.tsx  — Ctrl/⌘K palette: sections, case studies, CV downloads, copy email, Calendly, switch language
+  Spotlight.tsx       — cursor-following glow for cards (trackSpotlight + SpotlightOverlay, SpotlightCard for server components)
   TrainingProgramCard.tsx — course card with cover image and track list
   ServiceCard.tsx     — service card
   ContactForm.tsx     — Formspree form via fetch + toasts
   SocialLinks.tsx     — GitHub / LinkedIn / Email (Lucide Globe/User/Mail)
   FadeInSection.tsx   — reusable scroll animation (direction, delay, reduced-motion fallback)
   BackToTop.tsx, ProgressBar.tsx, Toast.tsx (top-centre, showToast export), CursorGlow.tsx (desktop only)
+/components/site
+  RootShell.tsx       — <html lang>, fonts, metadata builder, JSON-LD, ContentProvider, global UI, Vercel Analytics
+  HomePage.tsx        — Navbar → Hero → Projects → Experience → Training → Services → Skills → About → Contact → Footer
+  NotFoundView.tsx    — styled 404
+/components/case-study
+  CaseStudyPage.tsx, CaseStudyHeader.tsx, ArchitectureDiagram.tsx — /work/[slug] pages
 ```
 
 ### App Structure
 ```
 /app
-  layout.tsx          — metadata, viewport, Person JSON-LD, fonts, ProgressBar, BackToTop, ToastContainer, CursorGlow
-  page.tsx            — Navbar → Hero → Projects → Experience → Training → Services → Skills → About → Contact → Footer
-  globals.css         — dark theme, reduced-motion, smooth scroll, no horizontal overflow
-  not-found.tsx       — custom 404
-  opengraph-image.tsx — OG image (Node runtime, statically generated; Satori: avoid complex CSS gradients)
-  sitemap.ts          — sitemap.xml
+  (en)/               — root layout lang="en": page (/), work/[slug], not-found, [...missing] (catch-all → styled 404), opengraph-image
+  (fr)/               — root layout lang="fr"; routes under fr/: /fr, /fr/work/[slug], …
+  api/status/route.ts — server-side health checks (IZ API /api/health, iz-academy.com, CabinAI /api/health); CDN-cached 60s
+  fonts.ts, globals.css, sitemap.ts (both languages + case studies, hreflang)
+  Two root layouts means no app-wide not-found: each language has a [...missing] catch-all instead
+/lib/og.tsx           — renderOgImage(c) (Satori: avoid complex CSS gradients)
 /public
   avatar.png, favicon.svg, robots.txt
   cv/                 — generated CV PDFs (Ahmed_Hajji_CV_EN/FR, Ahmed_Hajji_Trainer_CV_EN/FR); old Ahmed_Hajji_IT_CV.pdf redirects to the EN CV (next.config.mjs)
   training/           — course covers (webp, compressed from the originals)
+  work/               — product screenshots (1200×750 webp, captured from the live sites with Playwright)
 /docs                 — README screenshots
 ```
 
@@ -90,7 +107,7 @@
 - **All animations:** `prefers-reduced-motion` fallback (opacity only, no transforms)
 
 ## Key Rules
-1. **Zero hardcoded strings** — all content in `lib/constants.ts`
+1. **Zero hardcoded strings** — all content in `lib/content/en.ts` + `fr.ts` (both languages, always)
 2. **No `any` types** — TypeScript strict mode
 3. **No component over 150 lines** — decompose if needed
 4. **Calendly** — no embed; links open Calendly in a new tab
@@ -117,7 +134,12 @@
 - Manual deploy: `/home/dell/.npm-global/bin/vercel --prod` from project root
 - The `.npm-global/bin` path is needed for Vercel CLI
 
+## Analytics
+- `@vercel/analytics` is mounted in RootShell; Web Analytics must be enabled in the Vercel project settings to collect data
+
 ## Known follow-ups
+- Training: add photos / a short clip and real trainee quotes when available (owner decided to skip for now)
+- CabinAI: needs a dashboard screenshot (the app is behind login)
 - Testimonials: add a section back only with real, attributable quotes
 - Atlas Ed / BS Store: add to Selected Work when live
-- Keep the CV content in `cv-source/content_*.py` in sync with `lib/constants.ts` (years of experience, CraftSchoolship dates, TieUp CTO title)
+- Keep the CV content in `cv-source/content_*.py` in sync with `lib/content/*.ts` (years of experience, CraftSchoolship dates, TieUp CTO title)

@@ -2,16 +2,15 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { motion } from "framer-motion";
-import { Menu } from "lucide-react";
+import { Menu, Search } from "lucide-react";
 import MobileMenu from "@/components/ui/MobileMenu";
-import {
-  SITE_INITIALS,
-  NAV_LINKS,
-  NAV_OPEN_LABEL,
-  NAV_HOME_LABEL,
-} from "@/lib/constants";
+import { openPalette } from "@/components/ui/CommandPalette";
+import { useContent } from "@/lib/content/context";
 
-export default function Navbar() {
+const sectionId = (href: string) => href.split("#")[1] ?? "";
+
+export default function Navbar({ altHref }: { altHref: string }) {
+  const c = useContent();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeId, setActiveId] = useState("");
@@ -24,7 +23,7 @@ export default function Navbar() {
   }, []);
 
   useEffect(() => {
-    const ids = Array.from(new Set(NAV_LINKS.map((l) => l.href.replace("#", ""))));
+    const ids = Array.from(new Set(c.NAV_LINKS.map((l) => sectionId(l.href))));
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -38,11 +37,13 @@ export default function Navbar() {
       if (el) observer.observe(el);
     });
     return () => observer.disconnect();
-  }, []);
+  }, [c.NAV_LINKS]);
 
   const closeMobile = useCallback(() => setMobileOpen(false), []);
   const linkClass = (href: string) =>
-    activeId === href.replace("#", "") ? "text-cyan-400" : "text-gray-300 hover:text-white";
+    activeId === sectionId(href) ? "text-cyan-400" : "text-gray-300 hover:text-white";
+  const langClass =
+    "flex h-11 min-w-11 items-center justify-center rounded-full text-xs font-semibold tracking-wider text-gray-300 transition-colors hover:text-white";
   const ctaClass =
     "rounded-full bg-cyan-400/10 px-4 py-2 text-sm font-medium text-cyan-400 ring-1 ring-cyan-400/30 transition-colors hover:bg-cyan-400/20";
 
@@ -55,28 +56,28 @@ export default function Navbar() {
       >
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-3">
           <a
-            href="#"
-            aria-label={NAV_HOME_LABEL}
+            href={`${c.HOME_PATH}#`}
+            aria-label={c.NAV_HOME_LABEL}
             className="flex h-11 items-center text-xl font-bold text-white"
           >
-            {SITE_INITIALS}
+            {c.SITE_INITIALS}
             <span className="text-cyan-400">.</span>
           </a>
 
-          <div className="hidden items-center gap-6 md:flex">
-            {NAV_LINKS.map((link) =>
+          <div className="hidden items-center gap-4 md:flex lg:gap-6">
+            {c.NAV_LINKS.map((link) =>
               link.isCTA ? (
-                <a key={link.label} href={link.href} className={ctaClass}>
+                <a key={link.label} href={link.href} className={`hidden whitespace-nowrap lg:inline-flex ${ctaClass}`}>
                   {link.label}
                 </a>
               ) : (
                 <a
                   key={link.label}
                   href={link.href}
-                  className={`relative text-sm transition-colors duration-200 ${linkClass(link.href)}`}
+                  className={`relative whitespace-nowrap text-sm transition-colors duration-200 ${linkClass(link.href)}`}
                 >
                   {link.label}
-                  {activeId === link.href.replace("#", "") && (
+                  {activeId === sectionId(link.href) && (
                     <motion.span
                       layoutId="nav-underline"
                       className="absolute -bottom-1 left-0 right-0 h-0.5 bg-cyan-400"
@@ -86,17 +87,37 @@ export default function Navbar() {
                 </a>
               )
             )}
+            <span className="flex items-center gap-1 border-l border-white/10 pl-4">
+              <button
+                onClick={openPalette}
+                aria-label={c.PALETTE.openLabel}
+                className="flex h-11 items-center gap-2 rounded-full px-2 text-gray-400 transition-colors hover:text-white"
+              >
+                <Search className="h-4 w-4" />
+                <kbd className="hidden rounded border border-white/10 px-1.5 py-0.5 font-sans text-[11px] text-gray-400 lg:inline">
+                  {c.PALETTE.shortcut}
+                </kbd>
+              </button>
+              <a href={altHref} hrefLang={c.ALT_LANG.code.toLowerCase()} aria-label={c.ALT_LANG.ariaLabel} className={langClass}>
+                {c.ALT_LANG.code}
+              </a>
+            </span>
           </div>
 
+          <div className="flex items-center md:hidden">
+            <a href={altHref} hrefLang={c.ALT_LANG.code.toLowerCase()} aria-label={c.ALT_LANG.ariaLabel} className={langClass}>
+              {c.ALT_LANG.code}
+            </a>
           <button
             onClick={() => setMobileOpen(true)}
             className="-mr-2 flex h-11 w-11 items-center justify-center text-white md:hidden"
-            aria-label={NAV_OPEN_LABEL}
+            aria-label={c.NAV_OPEN_LABEL}
             aria-expanded={mobileOpen}
             aria-controls="mobile-menu"
           >
             <Menu className="h-6 w-6" />
           </button>
+          </div>
         </div>
       </nav>
 

@@ -1,9 +1,9 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { STATS } from "@/lib/constants";
 import type { StatItem } from "@/lib/types";
 import { useCountUp } from "@/lib/useCountUp";
+import { useContent } from "@/lib/content/context";
 
 function Stat({ stat, started }: { stat: StatItem; started: boolean }) {
   const count = useCountUp(stat.value, started);
@@ -19,6 +19,7 @@ function Stat({ stat, started }: { stat: StatItem; started: boolean }) {
 }
 
 export default function HeroStats() {
+  const c = useContent();
   const ref = useRef<HTMLDivElement>(null);
   const [started, setStarted] = useState(false);
 
@@ -44,7 +45,7 @@ export default function HeroStats() {
       ref={ref}
       className="grid grid-cols-2 divide-white/5 border-t border-white/5 sm:grid-cols-4 sm:divide-x"
     >
-      {STATS.map((stat) => (
+      {c.STATS.map((stat) => (
         <Stat key={stat.label} stat={stat} started={started} />
       ))}
     </div>

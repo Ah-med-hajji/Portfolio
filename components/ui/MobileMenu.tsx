@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
-import { NAV_LINKS, NAV_CLOSE_LABEL } from "@/lib/constants";
+import { useContent } from "@/lib/content/context";
 
 interface MobileMenuProps {
   open: boolean;
@@ -15,6 +15,7 @@ interface MobileMenuProps {
 // Rendered outside <nav>: the navbar's backdrop-filter would otherwise become the
 // containing block for this fixed drawer and clip it to the navbar's height.
 export default function MobileMenu({ open, activeId, ctaClass, onClose }: MobileMenuProps) {
+  const c = useContent();
   // Lock page scroll and close on Escape while open
   useEffect(() => {
     if (!open) return;
@@ -54,12 +55,12 @@ export default function MobileMenu({ open, activeId, ctaClass, onClose }: Mobile
             <button
               onClick={onClose}
               className="-ml-2 mb-6 flex h-11 w-11 items-center justify-center text-white"
-              aria-label={NAV_CLOSE_LABEL}
+              aria-label={c.NAV_CLOSE_LABEL}
             >
               <X className="h-6 w-6" />
             </button>
             <div className="flex flex-col gap-1">
-              {NAV_LINKS.map((link) => (
+              {c.NAV_LINKS.map((link) => (
                 <a
                   key={link.label}
                   href={link.href}
@@ -68,7 +69,7 @@ export default function MobileMenu({ open, activeId, ctaClass, onClose }: Mobile
                     link.isCTA
                       ? `mt-4 text-center ${ctaClass} py-3`
                       : `flex min-h-11 items-center text-base ${
-                          activeId === link.href.replace("#", "")
+                          activeId === link.href.split("#")[1]
                             ? "text-cyan-400"
                             : "text-gray-300 hover:text-white"
                         }`

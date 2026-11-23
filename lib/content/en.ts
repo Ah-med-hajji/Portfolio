@@ -12,40 +12,34 @@ import type {
   CVDownload,
   BookingOption,
   ContactSubject,
-  SocialLink,
-} from "./types";
+  Lang,
+  CaseStudy,
+  AltLang,
+  StatusService,
+} from "../types";
+
+export * from "./shared";
+import { SITE_NAME } from "./shared";
+
+export const LANG: Lang = "en";
+export const HOME_PATH = "/";
+export const ALT_LANG: AltLang = { code: "FR", ariaLabel: "Version française", home: "/fr", prefix: "/fr" };
 
 // ─── IDENTITY ───
-export const SITE_NAME = "Ahmed Hajji";
-export const SITE_INITIALS = "AH";
 export const TAGLINE = "Tech Lead · DevOps & SRE · AI Consultant & Trainer";
 export const SUB_TAGLINE = "ERP & Integration · Full-Stack";
 export const LOCATION = "Sousse, Tunisia";
-export const AVATAR_SRC = "/avatar.png";
 export const AVATAR_ALT = "Portrait of Ahmed Hajji";
-
-// ─── LINKS ───
-export const EMAIL = "ahmedhajji5401@gmail.com";
-export const GITHUB_URL = "https://github.com/Ah-med-hajji";
-export const LINKEDIN_URL = "https://linkedin.com/in/hajjiahmed";
-export const CALENDLY_URL = "https://calendly.com/ahmedhajji5401";
-export const FORMSPREE_ID = "xeevlgdl";
-
-export const SOCIAL_LINKS: SocialLink[] = [
-  { label: "GitHub", href: GITHUB_URL, icon: "Globe", external: true },
-  { label: "LinkedIn", href: LINKEDIN_URL, icon: "User", external: true },
-  { label: "Email", href: `mailto:${EMAIL}`, icon: "Mail", external: false },
-];
 
 // ─── NAV ───
 export const NAV_LINKS: NavLink[] = [
-  { label: "Work", href: "#work" },
-  { label: "Experience", href: "#experience" },
-  { label: "Training", href: "#training" },
-  { label: "Services", href: "#services" },
-  { label: "About", href: "#about" },
-  { label: "Contact", href: "#contact" },
-  { label: "Book a call", href: "#contact", isCTA: true },
+  { label: "Work", href: "/#work" },
+  { label: "Experience", href: "/#experience" },
+  { label: "Training", href: "/#training" },
+  { label: "Services", href: "/#services" },
+  { label: "About", href: "/#about" },
+  { label: "Contact", href: "/#contact" },
+  { label: "Book a call", href: "/#contact", isCTA: true },
 ];
 export const NAV_OPEN_LABEL = "Open menu";
 export const NAV_CLOSE_LABEL = "Close menu";
@@ -56,8 +50,8 @@ export const HERO_BADGE = "Available for projects & training";
 export const HERO_LOCATION = `${LOCATION} · Remote · Open to relocation`;
 export const HERO_PITCH =
   "I take products from requirements to production — architecture, code, cloud, CI/CD and monitoring — and I train teams to build the same way, including how to use AI properly.";
-export const HERO_CTA_PRIMARY = { label: "See my work", href: "#work" };
-export const HERO_CTA_SECONDARY = { label: "Book a call", href: "#contact" };
+export const HERO_CTA_PRIMARY = { label: "See my work", href: "/#work" };
+export const HERO_CTA_SECONDARY = { label: "Book a call", href: "/#contact" };
 
 export const STATS: StatItem[] = [
   { value: 5, suffix: "+", label: "Years of experience" },
@@ -125,16 +119,18 @@ export const PROJECTS: ProjectData[] = [
     role: "Co-founder & CTO",
     period: "Current",
     summary:
-      "A Tunisian freelance marketplace that had shut down. I relaunched it as co-founder and CTO and rebuilt it end to end on my own: a four-app monorepo with a public web app, an admin dashboard, an Express/TypeScript API and a mobile app.",
+      "A Tunisian freelance marketplace that had shut down. I relaunched it as co-founder and CTO and rebuilt it end to end on my own: a monorepo with a public web app, an admin dashboard and an Express/TypeScript API.",
     highlights: [
       "1,500+ automated tests — unit, Firestore integration and Playwright E2E",
       "82% backend coverage, enforced as a ratchet in CI",
       "Deploys gated on a green test suite in GitHub Actions",
       "English, French and Arabic with right-to-left layouts",
-      "ClicToPay online payments and hardened secret handling",
+      "Secret scanning and a bundle-size budget checked before every commit",
     ],
     tags: ["React", "TypeScript", "Node.js", "Express", "Firebase", "GitHub Actions", "Playwright"],
     link: { label: "tieupfreelance.com", href: "https://tieupfreelance.com" },
+    caseStudy: { label: "Read the case study", href: "/work/tieup" },
+    image: { src: "/work/tieup.webp", alt: "TieUp home page: find the perfect freelance services for your business" },
     featured: true,
   },
   {
@@ -166,6 +162,8 @@ export const PROJECTS: ProjectData[] = [
     ],
     tags: ["Docker", "GitHub Actions", "Node.js", "Prisma", "Redis", "Sentry"],
     link: { label: "iz-academy.com", href: "https://iz-academy.com" },
+    caseStudy: { label: "Read the case study", href: "/work/iz-academy" },
+    image: { src: "/work/iz-academy.webp", alt: "IZ Academy home page: learn at your own pace" },
   },
   {
     name: "Craft ERP — Odoo platform",
@@ -197,6 +195,166 @@ export const PROJECTS: ProjectData[] = [
     tags: ["Next.js", "React", "Supabase", "Tailwind", "Vercel"],
   },
 ];
+
+// ─── CASE STUDIES ───
+export const CASE_STUDY_LABELS = {
+  back: "Back to all work",
+  architecture: "Architecture",
+  visit: "Visit the live site",
+  next: "Next case study",
+  cta: "Want this for your product?",
+  ctaText: "I can audit, rebuild or run your platform the same way.",
+  ctaButton: "Book a call",
+};
+
+export const CASE_STUDIES: CaseStudy[] = [
+  {
+    slug: "tieup",
+    name: "TieUp",
+    eyebrow: "Case study · Co-founder & CTO",
+    title: "Relaunching a freelance marketplace, alone, with a test suite you can trust",
+    intro:
+      "TieUp is a Tunisian freelance marketplace that had shut down. I joined as co-founder and CTO to bring it back, and rebuilt the whole platform myself: product, architecture, code, tests, delivery and operations.",
+    image: { src: "/work/tieup.webp", alt: "TieUp home page" },
+    link: { label: "tieupfreelance.com", href: "https://tieupfreelance.com" },
+    facts: [
+      { label: "Role", value: "Co-founder & CTO" },
+      { label: "Team", value: "Just me" },
+      { label: "Stack", value: "React · TypeScript · Express · Firebase" },
+      { label: "Languages", value: "English · French · Arabic (RTL)" },
+    ],
+    metrics: [
+      { value: "1,500+", label: "automated tests across backend, web and admin" },
+      { value: "82%", label: "statement coverage on the backend logic layers" },
+      { value: "3", label: "languages, including Arabic right-to-left" },
+    ],
+    architecture: {
+      heading: "How it fits together",
+      caption: "One monorepo, three applications, one API, and a pipeline that refuses to deploy a red build.",
+      layers: [
+        { label: "Clients", items: ["Public web app — React, Tailwind, React Query", "Admin dashboard — React + TypeScript"] },
+        { label: "API", items: ["Express + TypeScript", "Service layer: controllers → services → models", "Central auth and role middleware"] },
+        { label: "Data", items: ["Firestore + security rules", "Firebase Auth and Storage", "Realtime Database for messaging"] },
+        { label: "Delivery", items: ["GitHub Actions: tests, then deploy", "Secret scanner and bundle budget", "Coverage floors that only go up"] },
+      ],
+    },
+    sections: [
+      {
+        heading: "The starting point",
+        body: "The previous platform had stopped. Relaunching it meant more than redeploying: the code had to be safe to change, cheap to run and easy for one engineer to operate.",
+      },
+      {
+        heading: "What I built",
+        points: [
+          "A public web app and an admin dashboard on React, with English, French and Arabic, including right-to-left layouts.",
+          "An Express/TypeScript API with a clean service layer, centralized authentication and role checks.",
+          "Firestore security rules tested against the Firebase emulator, not just written.",
+        ],
+      },
+      {
+        heading: "Quality as a system, not a phase",
+        points: [
+          "1,167 backend unit tests and 86 emulator integration tests; 178 web and 140 dashboard tests; Playwright end-to-end smoke tests.",
+          "Coverage floors set at the measured value, rounded down — the build fails on any regression, and every gain is locked in.",
+          "Coverage measured on the logic layers that matter, after finding that the old reports skipped them.",
+          "Deploys run only after the full test suite passes; secrets and bundle size are checked before every commit.",
+        ],
+      },
+      {
+        heading: "Auditing my own work",
+        body: "I review the platform on a schedule and grade it across six dimensions, from security and data integrity to performance and operability, against written exit criteria. Each fixed bug becomes a numbered rule the code must keep obeying.",
+      },
+    ],
+  },
+  {
+    slug: "iz-academy",
+    name: "IZ Academy",
+    eyebrow: "Case study · Security & reliability audit",
+    title: "Making a live e-learning platform safe to run with real students",
+    intro:
+      "IZ Academy is a French and Arabic e-learning platform built for Tunisia. A full review found it worked, but was not yet safe to run at scale. I audited the code, dependencies and infrastructure, then fixed what I found and rebuilt how it ships.",
+    image: { src: "/work/iz-academy.webp", alt: "IZ Academy home page" },
+    link: { label: "iz-academy.com", href: "https://iz-academy.com" },
+    facts: [
+      { label: "Role", value: "Auditor & engineer" },
+      { label: "Year", value: "2026" },
+      { label: "Stack", value: "React · Express · Prisma · PostgreSQL · Redis" },
+      { label: "Hosting", value: "Vercel · Railway · Supabase" },
+    ],
+    metrics: [
+      { value: "35", label: "security and engineering issues found and fixed" },
+      { value: "5 → 9", label: "production-readiness score, out of 10" },
+      { value: "17", label: "controllers moved to one error-handling pattern" },
+    ],
+    architecture: {
+      heading: "The platform after hardening",
+      caption: "Same product, now with health checks, timeouts, limits and alerts at every layer.",
+      layers: [
+        { label: "Client", items: ["React (Vite) on Vercel", "Cache rules that prevent blank pages after a deploy"] },
+        { label: "API", items: ["Express + TypeScript on Railway", "Timeouts, rate limits, graceful shutdown", "OpenAPI docs on every route"] },
+        { label: "Data & jobs", items: ["PostgreSQL via Prisma", "Redis cache and BullMQ queues", "Paginated queries with hard caps"] },
+        { label: "Operations", items: ["GitHub Actions CI/CD", "Health endpoint: database + Redis", "Sentry and structured logs"] },
+      ],
+    },
+    sections: [
+      {
+        heading: "The audit",
+        body: "I reviewed the full codebase, its dependencies and the way it was deployed, and wrote a plain-language report: what can hurt students, money or trust, ranked by risk, each with a fix.",
+      },
+      {
+        heading: "What I fixed",
+        points: [
+          "Secret management, dependency upgrades and access controls brought up to production standard.",
+          "One error-handling pattern across all 17 controllers, replacing 99 scattered try/catch blocks.",
+          "Graceful shutdown that drains requests, 30-second request timeouts and per-user rate limiting.",
+          "Integration tests on the authentication and enrollment flows, and OpenAPI documentation on every route.",
+        ],
+      },
+      {
+        heading: "Running it like production",
+        points: [
+          "A health endpoint that checks the database and Redis, with its own timeout so it can never hang.",
+          "Pagination with hard limits on the heaviest endpoints, and a memory cap that turns silent crashes into visible errors.",
+          "Ranked failure modes — connection pool, memory, queues, stale deploys — with the top risks mitigated first.",
+          "CI/CD that builds and deploys the front end and the API on every push to main.",
+        ],
+      },
+    ],
+  },
+];
+
+// ─── LIVE STATUS (hero) ───
+export const STATUS_PANEL = {
+  title: "Production, right now",
+  live: "Live",
+  checking: "Checking…",
+  up: "Operational",
+  down: "Not responding",
+  unavailable: "Status check unavailable",
+  checkedAt: "Checked",
+  footnote: "Real checks from this site's server, refreshed every minute.",
+};
+export const STATUS_SERVICES: StatusService[] = [
+  { id: "iz-api", name: "IZ Academy API", detail: "Database · Redis" },
+  { id: "iz-web", name: "IZ Academy", detail: "Web app" },
+  { id: "cabinai", name: "CabinAI", detail: "Web app & API" },
+  { id: "portfolio", name: "This site", detail: "Vercel" },
+];
+
+// ─── COMMAND PALETTE ───
+export const PALETTE = {
+  hint: "Search",
+  shortcut: "Ctrl K",
+  placeholder: "Jump to a section, download a CV…",
+  empty: "Nothing matches.",
+  groups: { navigate: "Go to", work: "Case studies", actions: "Actions" },
+  copyEmail: "Copy email address",
+  bookCall: "Book a call on Calendly",
+  switchLang: "Voir le site en français",
+  downloadCv: "Download CV",
+  close: "Close",
+  openLabel: "Open command palette",
+};
 
 // ─── EXPERIENCE ───
 export const EXPERIENCE: ExperienceEntry[] = [
@@ -481,4 +639,3 @@ export const NOT_FOUND_CTA = "Back to home";
 export const META_TITLE = `${SITE_NAME} — ${TAGLINE}`;
 export const META_DESCRIPTION =
   "Tech lead, DevOps & SRE engineer, and AI consultant & trainer based in Sousse, Tunisia. Co-founder & CTO of TieUp. I build, ship and run production systems — and teach teams to do the same.";
-export const META_URL = "https://ahmed-hajji-it.vercel.app";

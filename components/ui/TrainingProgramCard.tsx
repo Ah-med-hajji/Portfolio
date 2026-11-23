@@ -1,9 +1,13 @@
 import Image from "next/image";
 import type { TrainingProgram } from "@/lib/types";
+import { SpotlightCard } from "@/components/ui/Spotlight";
 
 export default function TrainingProgramCard({ program }: { program: TrainingProgram }) {
   return (
-    <article className="flex h-full flex-col overflow-hidden rounded-2xl border border-purple-400/10 bg-purple-400/[0.03]">
+    <SpotlightCard
+      color="167,139,250"
+      className="flex h-full flex-col overflow-hidden rounded-2xl border border-purple-400/10 bg-purple-400/[0.03] transition-colors duration-300 hover:border-purple-400/30"
+    >
       <div className="relative aspect-video w-full border-b border-white/5">
         <Image
           src={program.cover}
@@ -28,6 +32,6 @@ export default function TrainingProgramCard({ program }: { program: TrainingProg
           ))}
         </ul>
       </div>
-    </article>
+    </SpotlightCard>
   );
 }

@@ -1,16 +1,16 @@
 import { ArrowUpRight } from "lucide-react";
-import { EXPERIENCE, EXPERIENCE_CURRENT_LABEL, SECTIONS } from "@/lib/constants";
 import FadeInSection from "@/components/ui/FadeInSection";
 import SectionHeader from "@/components/ui/SectionHeader";
+import type { Content } from "@/lib/content";
 
-export default function Experience() {
+export default function Experience({ c }: { c: Content }) {
   return (
-    <section id={SECTIONS.experience.id} className="scroll-mt-20 px-6 py-20 sm:py-24">
+    <section id={c.SECTIONS.experience.id} className="scroll-mt-20 px-6 py-20 sm:py-24">
       <div className="mx-auto max-w-4xl">
-        <SectionHeader copy={SECTIONS.experience} />
+        <SectionHeader copy={c.SECTIONS.experience} />
 
         <ol className="relative space-y-6 border-l border-white/10 pl-6 sm:pl-8">
-          {EXPERIENCE.map((exp, i) => (
+          {c.EXPERIENCE.map((exp, i) => (
             <li key={`${exp.company}-${exp.role}`} className="relative">
               <span
                 className={`absolute -left-[31px] top-7 h-3 w-3 rounded-full ring-4 ring-[#0f1117] sm:-left-[39px] ${
@@ -42,7 +42,7 @@ export default function Experience() {
                         exp.current ? "bg-cyan-400/10 text-cyan-400" : "bg-white/5 text-gray-300"
                       }`}
                     >
-                      {exp.current ? EXPERIENCE_CURRENT_LABEL : exp.period}
+                      {exp.current ? c.EXPERIENCE_CURRENT_LABEL : exp.period}
                     </span>
                   </div>
                   <ul className="space-y-1.5">

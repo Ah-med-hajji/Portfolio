@@ -1,11 +1,8 @@
 import { ImageResponse } from "next/og";
-import { SITE_NAME, SITE_INITIALS, TAGLINE, SUB_TAGLINE, META_URL, META_TITLE } from "@/lib/constants";
+import type { Content } from "@/lib/content";
 
-export const alt = META_TITLE;
-export const size = { width: 1200, height: 630 };
-export const contentType = "image/png";
-
-export default function OgImage() {
+// Shared by each language's opengraph-image route
+export function renderOgImage(c: Content) {
   return new ImageResponse(
     (
       <div
@@ -44,7 +41,7 @@ export default function OgImage() {
               color: "#38bdf8",
             }}
           >
-            {SITE_INITIALS}
+            {c.SITE_INITIALS}
           </span>
         </div>
 
@@ -58,7 +55,7 @@ export default function OgImage() {
             letterSpacing: "-0.02em",
           }}
         >
-          {SITE_NAME}
+          {c.SITE_NAME}
         </div>
 
         {/* Tagline */}
@@ -69,7 +66,7 @@ export default function OgImage() {
             marginBottom: 36,
           }}
         >
-          {TAGLINE}
+          {c.TAGLINE}
         </div>
 
         {/* Accent line */}
@@ -91,7 +88,7 @@ export default function OgImage() {
             textAlign: "center",
           }}
         >
-          {SUB_TAGLINE}
+          {c.SUB_TAGLINE}
         </div>
 
         {/* URL */}
@@ -103,10 +100,10 @@ export default function OgImage() {
             color: "#475569",
           }}
         >
-          {META_URL.replace("https://", "")}
+          {c.META_URL.replace("https://", "")}
         </div>
       </div>
     ),
-    { ...size }
+    { width: 1200, height: 630 }
   );
 }
