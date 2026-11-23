@@ -411,8 +411,7 @@ export const CERTS: string[] = [
 export const LANGUAGES_TITLE = "Languages";
 export const LANGUAGES: string[] = ["Arabic — native", "English — C1 (TOEIC)", "French — fluent"];
 export const CV_DOWNLOADS: CVDownload[] = [
-  { label: "CV — English", href: "/cv/Ahmed_Hajji_IT_CV.pdf" },
-  { label: "CV Formateur IA & DevOps — FR", href: "/cv/Ahmed_Hajji_CV_Formateur_IA_DevOps_FR.pdf" },
+  { label: "Download CV", href: "/cv/Ahmed_Hajji_IT_CV.pdf" },
 ];
 
 // ─── CONTACT ───

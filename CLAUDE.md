@@ -20,7 +20,7 @@
 - `lib/useCountUp.ts` — shared count-up animation hook
 
 ### Content sources
-- Facts come from the CV (`public/cv/Ahmed_Hajji_IT_CV.pdf`) and the trainer CV (`public/cv/Ahmed_Hajji_CV_Formateur_IA_DevOps_FR.pdf`). Course material lives on the owner's machine under `D:\Ahmed\Work\IT instructor`.
+- Facts come from the global CV (`public/cv/Ahmed_Hajji_IT_CV.pdf`, the only CV offered for download) and, for context only, the trainer CV kept off-site (`D:\Ahmed\Work\CV\Claude cv\Ahmed_Hajji_CV_Formateur_IA_DevOps_FR.pdf`). Course material lives on the owner's machine under `D:\Ahmed\Work\IT instructor`.
 - Agreed facts: 5+ years, 20+ projects, 10+ clients, 3 regions. CraftSchoolship 2022 – 2026 (years only, no months). TieUp: co-founder & CTO, relaunched and built entirely by Ahmed; repo private (no code link).
 - Do NOT add: fake testimonials, Atlas Ed (not ready), Marmaris Marble, Maryem Beauty Shop, Chouchene. BS Store only once bs-store.tn and its Supabase project are back online.
 - IZ Academy is shown as "production hardening" — never mention the specific critical vulnerability publicly.
@@ -35,7 +35,7 @@
   Training.tsx        — Training & Workshops: program cards with course covers, module strip (sm+), approach, AI certs, CTA
   Services.tsx        — 5 service cards (6-col grid on desktop, last two centred)
   Skills.tsx          — grouped skill chips
-  About.tsx           — bio, education, certifications, languages, two CV download buttons
+  About.tsx           — bio, education, certifications, languages, CV download button (global CV only)
   Contact.tsx         — ContactForm + email copy + SocialLinks + Calendly booking options
   Footer.tsx          — nav links, socials, copyright
 /components/ui
@@ -113,4 +113,4 @@
 ## Known follow-ups
 - Testimonials: add a section back only with real, attributable quotes
 - Atlas Ed / BS Store: add to Selected Work when live
-- Keep the CV PDFs in `public/cv/` in sync with the site (years of experience, CraftSchoolship dates, TieUp CTO title)
+- Keep the CV PDF in `public/cv/` in sync with the site (years of experience, CraftSchoolship dates, TieUp CTO title)

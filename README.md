@@ -18,7 +18,7 @@
 4. **Training & Workshops** — AI and DevOps courses, teaching approach, AI certifications
 5. **Services** — full-stack, DevOps/SRE & cloud, security & reliability audits, ERP/Odoo, AI integration & training
 6. **Skills** — grouped toolbox
-7. **About** — bio, education, certifications, languages, CV downloads (EN + FR trainer CV)
+7. **About** — bio, education, certifications, languages, CV download
 8. **Contact** — Formspree form + Calendly booking options
 
 All copy lives in `lib/constants.ts`. Fully responsive from 360px, `prefers-reduced-motion` respected.
