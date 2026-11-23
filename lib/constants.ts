@@ -165,7 +165,7 @@ export const PROJECTS: ProjectData[] = [
       "Sentry monitoring, structured logging and Redis caching",
     ],
     tags: ["Docker", "GitHub Actions", "Node.js", "Prisma", "Redis", "Sentry"],
-    link: { label: "iz-academy.vercel.app", href: "https://iz-academy.vercel.app" },
+    link: { label: "iz-academy.com", href: "https://iz-academy.com" },
   },
   {
     name: "Craft ERP — Odoo platform",
@@ -215,6 +215,7 @@ export const EXPERIENCE: ExperienceEntry[] = [
   {
     role: "AI & DevOps Trainer",
     company: "IZ Academy",
+    companyUrl: "https://iz-academy.com",
     location: "Sousse",
     period: "Current",
     current: true,
