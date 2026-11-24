@@ -105,13 +105,13 @@ export default function CommandPalette() {
           </button>
         </div>
         <ul id="palette-list" role="listbox" className="max-h-[50vh] overflow-y-auto p-2">
-          {results.length === 0 && <li className="px-3 py-6 text-center text-sm text-gray-500">{c.PALETTE.empty}</li>}
+          {results.length === 0 && <li className="px-3 py-6 text-center text-sm text-gray-400">{c.PALETTE.empty}</li>}
           {results.map((item, i) => {
             const Icon = item.icon;
             const showGroup = i === 0 || results[i - 1].group !== item.group;
             return (
               <li key={item.id} role="presentation">
-                {showGroup && <p className="px-3 pb-1 pt-3 text-[11px] uppercase tracking-wider text-gray-500">{item.group}</p>}
+                {showGroup && <p className="px-3 pb-1 pt-3 text-[11px] uppercase tracking-wider text-gray-400">{item.group}</p>}
                 <button
                   id={`palette-${item.id}`}
                   role="option"
@@ -122,7 +122,7 @@ export default function CommandPalette() {
                     i === active ? "bg-cyan-400/10 text-white" : "text-gray-300"
                   }`}
                 >
-                  <Icon className={`h-4 w-4 flex-shrink-0 ${i === active ? "text-cyan-400" : "text-gray-500"}`} />
+                  <Icon className={`h-4 w-4 flex-shrink-0 ${i === active ? "text-cyan-400" : "text-gray-400"}`} />
                   <span className="truncate">{item.label}</span>
                 </button>
               </li>

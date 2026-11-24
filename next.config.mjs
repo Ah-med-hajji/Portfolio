@@ -1,5 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Inline critical CSS so the stylesheet does not block the first paint (uses critters)
+  experimental: { optimizeCss: true },
   async redirects() {
     return [
       // Old single-CV link, still shared in places: point it at the current English CV

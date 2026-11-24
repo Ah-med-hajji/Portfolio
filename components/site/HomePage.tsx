@@ -15,7 +15,7 @@ export default function HomePage({ c }: { c: Content }) {
     <>
       <Navbar altHref={c.ALT_LANG.home} />
       <main>
-        <Hero />
+        <Hero c={c} />
         <Projects c={c} />
         <Experience c={c} />
         <Training c={c} />

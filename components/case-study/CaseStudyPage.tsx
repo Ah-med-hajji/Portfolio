@@ -58,7 +58,7 @@ export default function CaseStudyPage({ c, study }: { c: Content; study: CaseStu
                 href={`${base}/work/${next.slug}`}
                 className="group flex flex-col justify-between rounded-2xl border border-white/5 bg-white/[0.02] p-6 transition-colors hover:border-cyan-400/40 sm:p-8"
               >
-                <span className="text-xs font-semibold uppercase tracking-wider text-gray-500">{t.next}</span>
+                <span className="text-xs font-semibold uppercase tracking-wider text-gray-400">{t.next}</span>
                 <span className="mt-3 flex items-center justify-between gap-4 text-xl font-semibold text-white">
                   {next.name}
                   <ArrowRight className="h-5 w-5 text-cyan-400 transition-transform motion-safe:group-hover:translate-x-1" />

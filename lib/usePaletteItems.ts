@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo } from "react";
-import { ArrowRight, BookOpen, CalendarDays, Copy, Download, Languages } from "lucide-react";
+import { ArrowRight, BookOpen, CalendarDays, Copy, Download, Gauge, Languages } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { useContent } from "@/lib/content/context";
 import { showToast } from "@/components/ui/Toast";
@@ -46,6 +46,7 @@ export function usePaletteItems(): PaletteItem[] {
         icon: BookOpen,
         run: () => go(`${base}/work/${s.slug}`),
       })),
+      { id: "how-built", group: g.work, label: c.PALETTE.howBuilt, icon: Gauge, run: () => go(`${base}${c.BUILT_PATH}`) },
       ...c.CV_DOWNLOADS.flatMap((cv) =>
         cv.files.map((f) => ({
           id: `cv-${f.href}`,

@@ -354,6 +354,7 @@ export const PALETTE = {
   downloadCv: "Download CV",
   close: "Close",
   openLabel: "Open command palette",
+  howBuilt: "How this site is built",
 };
 
 // ─── EXPERIENCE ───
@@ -630,6 +631,72 @@ export const BOOKING_OPTIONS: BookingOption[] = [
 // ─── FOOTER ───
 export const FOOTER_BUILT_WITH = "Built with Next.js, Tailwind CSS and Vercel";
 export const BACK_TO_TOP_LABEL = "Back to top";
+
+// ─── HOW THIS SITE IS BUILT ───
+export const FOOTER_LIGHTHOUSE = {
+  label: "Lighthouse, mobile",
+  linkLabel: "How this site is built",
+};
+export const BUILT_PAGE = {
+  metaTitle: "How this site is built",
+  metaDescription:
+    "Architecture, performance work and the automated quality check behind this portfolio, with its current Lighthouse scores.",
+  eyebrow: "Colophon",
+  title: "How this site is built",
+  intro:
+    "This portfolio is run the way I run client systems: small, measured, and checked automatically on every change. Here is what is under the hood.",
+  scoresTitle: "Current Lighthouse scores",
+  scoresNote:
+    "Mobile profile, median of three runs per page, measured by the automated check on the latest push. Not typed by hand.",
+  scoresMissing: "Scores appear here after the first automated run.",
+  measured: "Measured",
+  commit: "commit",
+  viewRuns: "See every run on GitHub",
+  viewSource: "Source code",
+  categories: { performance: "Performance", accessibility: "Accessibility", bestPractices: "Best practices", seo: "SEO" },
+  pages: { "/": "Home", "/fr": "Home (French)", "/work/tieup": "Case study" } as Record<string, string>,
+  sections: [
+    {
+      heading: "Architecture",
+      points: [
+        "Next.js 14 (App Router) with TypeScript in strict mode and Tailwind CSS, deployed on Vercel.",
+        "Every page is generated ahead of time and served from the CDN; they refresh hourly to pick up new scores.",
+        "One server function: the live status panel. It checks the production health endpoints from the server with a 5-second timeout, and the CDN caches the answer for 60 seconds, so visitors never hit those services directly.",
+      ],
+    },
+    {
+      heading: "Performance",
+      points: [
+        "The hero text is rendered on the server and visible from the first paint; only decoration fades in.",
+        "Animations use CSS and a single scroll observer instead of an animation library, which cut the home page's JavaScript from 157 kB to 113 kB.",
+        "The Geist font is trimmed to the characters English and French need and served as woff2: 33 kB instead of 66 kB.",
+        "Critical CSS is inlined so the stylesheet never blocks the first paint; images are resized and served as WebP.",
+      ],
+    },
+    {
+      heading: "Automated quality check",
+      points: [
+        "Every push and pull request runs on GitHub Actions: type check, lint, production build, then Lighthouse on three pages.",
+        "The check fails if performance drops below 95, or accessibility, best practices or SEO drop below 100.",
+        "After each push to main, the workflow publishes its scores, and this page and the footer read them from there.",
+      ],
+    },
+    {
+      heading: "Two languages",
+      points: [
+        "All text lives in one English and one French content file; the build fails if the French version is missing anything.",
+        "Each language has its own URLs, with hreflang links so search engines show the right one.",
+      ],
+    },
+    {
+      heading: "Privacy and accessibility",
+      points: [
+        "Vercel Web Analytics counts visits without cookies; there are no third-party trackers.",
+        "Reduced-motion settings are respected, tap targets are at least 44 px, and everything works from the keyboard, including the Ctrl K palette.",
+      ],
+    },
+  ],
+};
 
 // ─── 404 ───
 export const NOT_FOUND_TEXT = "This page doesn't exist.";

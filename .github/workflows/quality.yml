@@ -1,0 +1,65 @@
+# Quality gate: type check, lint, build, then Lighthouse (mobile, median of 3 runs) on three pages.
+# Fails below 95 for performance and below 100 for accessibility, best practices and SEO.
+# On main, the measured scores are published to the `lighthouse` branch (scores.json),
+# which the site reads for its footer line and the /how-its-built page.
+name: Quality
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: quality-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lighthouse:
+    name: Lighthouse
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+      - name: Type check
+        run: npx tsc --noEmit
+      - name: Lint
+        run: npm run lint
+      - name: Build
+        run: npm run build
+
+      - name: Lighthouse (mobile, 3 runs per page)
+        run: npx --yes @lhci/cli@0.16.1 autorun
+
+      - name: Summarise scores
+        if: always() && hashFiles('.lighthouseci/lhr-*.json') != ''
+        run: node scripts/lighthouse-summary.mjs > scores.json && cat scores.json
+
+      - name: Keep the full reports
+        if: always() && hashFiles('.lighthouseci/lhr-*.json') != ''
+        uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse-reports
+          path: .lighthouseci/
+          retention-days: 30
+
+      # Published even when the check fails, so the site never shows better numbers than the latest run
+      - name: Publish scores to the lighthouse branch
+        if: always() && github.event_name == 'push' && github.ref == 'refs/heads/main' && hashFiles('scores.json') != ''
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          mkdir publish && cp scores.json publish/ && cd publish
+          git init -q -b lighthouse
+          git add scores.json
+          git -c user.name="github-actions[bot]" -c user.email="41898283+github-actions[bot]@users.noreply.github.com" \
+            commit -qm "Lighthouse scores for ${GITHUB_SHA::7}"
+          git push -qf "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" lighthouse

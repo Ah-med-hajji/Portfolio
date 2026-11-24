@@ -9,7 +9,7 @@
 
 ## Tech Stack
 - Next.js 14 (App Router) + TypeScript strict
-- Tailwind CSS + Framer Motion + Lucide React
+- Tailwind CSS + Lucide React (no animation library: CSS transitions + one IntersectionObserver)
 - Deployed on Vercel (production domain: ahmed-hajji-it.vercel.app)
 
 ## Architecture
@@ -36,7 +36,7 @@
 ```
 /components
   Navbar.tsx          — fixed, blur when scrolled, active-section underline, ⌘K button, EN/FR switch (`altHref` prop); renders MobileMenu outside <nav>
-  Hero.tsx            — name as <h1>, tagline, pitch, location, CTAs, photo, StatusPanel (under photo on desktop, after text on mobile), HeroStats
+  Hero.tsx            — server component (text visible at first paint = mobile LCP); name as <h1>, tagline, pitch, location, CTAs, photo, StatusPanel (under photo on desktop, after text on mobile), HeroStats
   Projects.tsx        — Selected Work: case-study grid, featured card spans 2 columns
   Experience.tsx      — vertical timeline of EXPERIENCE entries
   Training.tsx        — Training & Workshops: program cards with course covers, module strip (sm+), approach, AI certs, CTA
@@ -44,7 +44,7 @@
   Skills.tsx          — grouped skill chips
   About.tsx           — bio, education, certifications, languages, CVDownloads (Tech Lead + Trainer CV, EN/FR each)
   Contact.tsx         — ContactForm + email copy + SocialLinks + Calendly booking options
-  Footer.tsx          — nav links, socials, copyright
+  Footer.tsx          — nav links, socials, LighthouseLine, copyright
 /components/ui
   MobileMenu.tsx      — drawer rendered OUTSIDE <nav> (backdrop-filter would clip a fixed child), backdrop, scroll lock, Escape
   CVDownloads.tsx     — one row per CV with EN / FR download buttons
@@ -58,12 +58,16 @@
   ServiceCard.tsx     — service card
   ContactForm.tsx     — Formspree form via fetch + toasts
   SocialLinks.tsx     — GitHub / LinkedIn / Email (Lucide Globe/User/Mail)
-  FadeInSection.tsx   — reusable scroll animation (direction, delay, reduced-motion fallback)
+  FadeInSection.tsx   — scroll reveal wrapper; uses revealProps() from lib/reveal.ts ([data-reveal] in globals.css)
+  RevealObserver.tsx  — single IntersectionObserver that adds .is-visible to every [data-reveal] (mounted in RootShell)
+  LighthouseLine.tsx  — footer line with the latest CI Lighthouse scores, links to /how-its-built
   BackToTop.tsx, ProgressBar.tsx, Toast.tsx (top-centre, showToast export), CursorGlow.tsx (desktop only)
 /components/site
   RootShell.tsx       — <html lang>, fonts, metadata builder, JSON-LD, ContentProvider, global UI, Vercel Analytics
   HomePage.tsx        — Navbar → Hero → Projects → Experience → Training → Services → Skills → About → Contact → Footer
   NotFoundView.tsx    — styled 404
+/components/built
+  BuiltPage.tsx, ScoresPanel.tsx — /how-its-built colophon (scores read via lib/lighthouse.ts)
 /components/case-study
   CaseStudyPage.tsx, CaseStudyHeader.tsx, ArchitectureDiagram.tsx — /work/[slug] pages
 ```
@@ -71,7 +75,7 @@
 ### App Structure
 ```
 /app
-  (en)/               — root layout lang="en": page (/), work/[slug], not-found, [...missing] (catch-all → styled 404), opengraph-image
+  (en)/               — root layout lang="en": page (/), work/[slug], how-its-built, not-found, [...missing] (catch-all → styled 404), opengraph-image
   (fr)/               — root layout lang="fr"; routes under fr/: /fr, /fr/work/[slug], …
   api/status/route.ts — server-side health checks (IZ API /api/health, iz-academy.com, CabinAI /api/health); CDN-cached 60s
   fonts.ts, globals.css, sitemap.ts (both languages + case studies, hreflang)
@@ -96,6 +100,15 @@
 8. About (#about)
 9. Contact (#contact)
 10. Footer
+
+## Performance & quality gate
+- `.github/workflows/quality.yml` on every push/PR: tsc, lint, build, Lighthouse CI (`lighthouserc.json`: mobile, 3 runs, median) on /, /fr, /work/tieup
+- Fails below 95 performance or below 100 accessibility / best practices / SEO
+- On main it publishes `scores.json` (via `scripts/lighthouse-summary.mjs`) to the `lighthouse` branch; `lib/lighthouse.ts` fetches it (revalidate 1h). Never type scores by hand. `vercel.json` disables deploys of that branch
+- Keep it fast: no animation libraries, hero text server-rendered, `experimental.optimizeCss` (critters) inlines critical CSS
+- Fonts: `app/fonts/*.woff2` are Geist subset to Latin/Latin-1/Latin Ext-A + punctuation with fontTools `pyftsubset`; re-subset from the original Geist files if a new character is needed
+- Client components only receive `ClientContent` (`toClientContent` in `lib/content/index.ts`); add a key to `CLIENT_KEYS` if a client component needs it
+- Vercel Analytics only renders when `VERCEL=1` (no 404 on local/CI servers)
 
 ## Design System
 - **Background:** #0f1117 (deep slate)

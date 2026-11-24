@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { motion } from "framer-motion";
 import { Menu, Search } from "lucide-react";
 import MobileMenu from "@/components/ui/MobileMenu";
 import { openPalette } from "@/components/ui/CommandPalette";
@@ -57,11 +56,11 @@ export default function Navbar({ altHref }: { altHref: string }) {
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-3">
           <a
             href={`${c.HOME_PATH}#`}
-            aria-label={c.NAV_HOME_LABEL}
             className="flex h-11 items-center text-xl font-bold text-white"
           >
             {c.SITE_INITIALS}
             <span className="text-cyan-400">.</span>
+            <span className="sr-only"> — {c.NAV_HOME_LABEL}</span>
           </a>
 
           <div className="hidden items-center gap-4 md:flex lg:gap-6">
@@ -78,11 +77,7 @@ export default function Navbar({ altHref }: { altHref: string }) {
                 >
                   {link.label}
                   {activeId === sectionId(link.href) && (
-                    <motion.span
-                      layoutId="nav-underline"
-                      className="absolute -bottom-1 left-0 right-0 h-0.5 bg-cyan-400"
-                      transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                    />
+                    <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-cyan-400" />
                   )}
                 </a>
               )
@@ -90,23 +85,25 @@ export default function Navbar({ altHref }: { altHref: string }) {
             <span className="flex items-center gap-1 border-l border-white/10 pl-4">
               <button
                 onClick={openPalette}
-                aria-label={c.PALETTE.openLabel}
                 className="flex h-11 items-center gap-2 rounded-full px-2 text-gray-400 transition-colors hover:text-white"
               >
                 <Search className="h-4 w-4" />
+                <span className="sr-only">{c.PALETTE.openLabel}</span>
                 <kbd className="hidden rounded border border-white/10 px-1.5 py-0.5 font-sans text-[11px] text-gray-400 lg:inline">
                   {c.PALETTE.shortcut}
                 </kbd>
               </button>
-              <a href={altHref} hrefLang={c.ALT_LANG.code.toLowerCase()} aria-label={c.ALT_LANG.ariaLabel} className={langClass}>
+              <a href={altHref} hrefLang={c.ALT_LANG.code.toLowerCase()} className={langClass}>
                 {c.ALT_LANG.code}
+                <span className="sr-only"> — {c.ALT_LANG.ariaLabel}</span>
               </a>
             </span>
           </div>
 
           <div className="flex items-center md:hidden">
-            <a href={altHref} hrefLang={c.ALT_LANG.code.toLowerCase()} aria-label={c.ALT_LANG.ariaLabel} className={langClass}>
+            <a href={altHref} hrefLang={c.ALT_LANG.code.toLowerCase()} className={langClass}>
               {c.ALT_LANG.code}
+              <span className="sr-only"> — {c.ALT_LANG.ariaLabel}</span>
             </a>
           <button
             onClick={() => setMobileOpen(true)}

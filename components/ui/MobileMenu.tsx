@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 import { useContent } from "@/lib/content/context";
 
@@ -30,28 +29,24 @@ export default function MobileMenu({ open, activeId, ctaClass, onClose }: Mobile
   }, [open, onClose]);
 
   return (
-    <AnimatePresence>
-      {open && (
-        <>
-          <motion.div
-            key="backdrop"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={onClose}
-            className="fixed inset-0 z-[60] bg-black/60 md:hidden"
-          />
-          <motion.div
-            key="drawer"
-            id="mobile-menu"
-            role="dialog"
-            aria-modal="true"
-            initial={{ x: "100%" }}
-            animate={{ x: 0 }}
-            exit={{ x: "100%" }}
-            transition={{ type: "spring", stiffness: 300, damping: 30 }}
-            className="fixed inset-y-0 right-0 z-[61] flex w-72 max-w-[85vw] flex-col border-l border-white/5 bg-[#0f1117] p-6 md:hidden"
-          >
+    <>
+      {/* Always mounted so it can slide out; `invisible` when closed removes it from focus and the a11y tree */}
+      <div
+        onClick={onClose}
+        aria-hidden
+        className={`fixed inset-0 z-[60] bg-black/60 transition-opacity duration-300 md:hidden ${
+          open ? "opacity-100" : "pointer-events-none opacity-0"
+        }`}
+      />
+      <div
+        id="mobile-menu"
+        role="dialog"
+        aria-modal="true"
+        aria-hidden={!open}
+        className={`fixed inset-y-0 right-0 z-[61] flex w-72 max-w-[85vw] flex-col border-l border-white/5 bg-[#0f1117] p-6 transition-[transform,visibility] duration-300 ease-out md:hidden ${
+          open ? "visible translate-x-0" : "invisible translate-x-full"
+        }`}
+      >
             <button
               onClick={onClose}
               className="-ml-2 mb-6 flex h-11 w-11 items-center justify-center text-white"
@@ -79,9 +74,7 @@ export default function MobileMenu({ open, activeId, ctaClass, onClose }: Mobile
                 </a>
               ))}
             </div>
-          </motion.div>
-        </>
-      )}
-    </AnimatePresence>
+      </div>
+    </>
   );
 }

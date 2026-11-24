@@ -1,4 +1,5 @@
 import SocialLinks from "@/components/ui/SocialLinks";
+import LighthouseLine from "@/components/ui/LighthouseLine";
 import type { Content } from "@/lib/content";
 
 export default function Footer({ c }: { c: Content }) {
@@ -32,9 +33,12 @@ export default function Footer({ c }: { c: Content }) {
           <SocialLinks />
         </div>
 
-        <p className="mt-8 text-center text-xs text-gray-500">
-          © {year} {c.SITE_NAME} · {c.FOOTER_BUILT_WITH}
-        </p>
+        <div className="mt-8 flex flex-col items-center gap-1 text-center">
+          <LighthouseLine c={c} />
+          <p className="text-xs text-gray-400">
+            © {year} {c.SITE_NAME} · {c.FOOTER_BUILT_WITH}
+          </p>
+        </div>
       </div>
     </footer>
   );

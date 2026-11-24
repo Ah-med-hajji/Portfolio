@@ -19,12 +19,12 @@ export default function CVDownloads({ c }: { c: Content }) {
                   key={f.href}
                   href={f.href}
                   download
-                  aria-label={f.ariaLabel}
                   hrefLang={f.lang.toLowerCase()}
                   className="inline-flex h-11 min-w-[3.5rem] items-center justify-center gap-1.5 rounded-full border border-white/10 px-4 text-sm font-medium text-gray-200 transition-colors hover:border-cyan-400/40 hover:bg-white/5 hover:text-white"
                 >
                   <Download className="h-3.5 w-3.5 text-cyan-400" />
                   {f.lang}
+                  <span className="sr-only"> — {f.ariaLabel}</span>
                 </a>
               ))}
             </span>

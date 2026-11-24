@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Analytics } from "@vercel/analytics/next";
 import "@/app/globals.css";
 import { geistSans, geistMono } from "@/app/fonts";
-import { getContent } from "@/lib/content";
+import { getContent, toClientContent } from "@/lib/content";
 import { ContentProvider } from "@/lib/content/context";
 import type { Lang } from "@/lib/types";
 import ProgressBar from "@/components/ui/ProgressBar";
@@ -10,6 +10,7 @@ import BackToTop from "@/components/ui/BackToTop";
 import ToastContainer from "@/components/ui/Toast";
 import CursorGlow from "@/components/ui/CursorGlow";
 import CommandPalette from "@/components/ui/CommandPalette";
+import RevealObserver from "@/components/ui/RevealObserver";
 
 const OG_LOCALE: Record<Lang, string> = { en: "en_US", fr: "fr_FR" };
 
@@ -56,16 +57,21 @@ export default function RootShell({ lang, children }: { lang: Lang; children: Re
       <body
         className={`${geistSans.variable} ${geistMono.variable} font-[family-name:var(--font-geist-sans)] antialiased`}
       >
+        <noscript>
+          <style>{"[data-reveal]{opacity:1!important;transform:none!important}"}</style>
+        </noscript>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }} />
-        <ContentProvider c={c}>
+        <ContentProvider c={toClientContent(c)}>
           <ProgressBar />
           {children}
           <BackToTop />
           <ToastContainer />
           <CursorGlow />
           <CommandPalette />
+          <RevealObserver />
         </ContentProvider>
-        <Analytics />
+        {/* Only on Vercel: the script does not exist on a local or CI server */}
+        {process.env.VERCEL === "1" && <Analytics />}
       </body>
     </html>
   );

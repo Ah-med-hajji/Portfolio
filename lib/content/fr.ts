@@ -355,6 +355,7 @@ export const PALETTE = {
   downloadCv: "Télécharger le CV",
   close: "Fermer",
   openLabel: "Ouvrir la palette de commandes",
+  howBuilt: "Comment ce site est construit",
 };
 
 // ─── EXPERIENCE ───
@@ -631,6 +632,72 @@ export const BOOKING_OPTIONS: BookingOption[] = [
 // ─── FOOTER ───
 export const FOOTER_BUILT_WITH = "Réalisé avec Next.js, Tailwind CSS et Vercel";
 export const BACK_TO_TOP_LABEL = "Retour en haut";
+
+// ─── COULISSES DU SITE ───
+export const FOOTER_LIGHTHOUSE = {
+  label: "Lighthouse, mobile",
+  linkLabel: "Comment ce site est construit",
+};
+export const BUILT_PAGE = {
+  metaTitle: "Comment ce site est construit",
+  metaDescription:
+    "Architecture, travail de performance et contrôle qualité automatisé de ce portfolio, avec ses scores Lighthouse actuels.",
+  eyebrow: "Coulisses",
+  title: "Comment ce site est construit",
+  intro:
+    "Ce portfolio est géré comme les systèmes de mes clients : léger, mesuré et vérifié automatiquement à chaque modification. Voici ce qu'il y a sous le capot.",
+  scoresTitle: "Scores Lighthouse actuels",
+  scoresNote:
+    "Profil mobile, médiane de trois mesures par page, relevée par le contrôle automatisé sur la dernière mise à jour. Rien n'est saisi à la main.",
+  scoresMissing: "Les scores s'afficheront ici après le premier contrôle automatisé.",
+  measured: "Mesuré le",
+  commit: "commit",
+  viewRuns: "Voir tous les contrôles sur GitHub",
+  viewSource: "Code source",
+  categories: { performance: "Performance", accessibility: "Accessibilité", bestPractices: "Bonnes pratiques", seo: "SEO" },
+  pages: { "/": "Accueil", "/fr": "Accueil (français)", "/work/tieup": "Étude de cas" } as Record<string, string>,
+  sections: [
+    {
+      heading: "Architecture",
+      points: [
+        "Next.js 14 (App Router), TypeScript en mode strict et Tailwind CSS, déployé sur Vercel.",
+        "Chaque page est générée à l'avance et servie par le CDN ; elles se régénèrent toutes les heures pour reprendre les nouveaux scores.",
+        "Une seule fonction serveur : le panneau d'état en direct. Il interroge les points de santé de production depuis le serveur avec un délai de 5 secondes, et le CDN met la réponse en cache 60 secondes : les visiteurs ne sollicitent jamais ces services directement.",
+      ],
+    },
+    {
+      heading: "Performance",
+      points: [
+        "Le texte d'accueil est rendu côté serveur et visible dès le premier affichage ; seule la décoration apparaît en fondu.",
+        "Les animations utilisent du CSS et un seul observateur de défilement au lieu d'une bibliothèque d'animation, ce qui a réduit le JavaScript de l'accueil de 157 ko à 113 ko.",
+        "La police Geist est réduite aux caractères nécessaires au français et à l'anglais et servie en woff2 : 33 ko au lieu de 66 ko.",
+        "Le CSS critique est intégré à la page pour ne jamais bloquer le premier affichage ; les images sont redimensionnées et servies en WebP.",
+      ],
+    },
+    {
+      heading: "Contrôle qualité automatisé",
+      points: [
+        "Chaque push et chaque pull request passent par GitHub Actions : vérification des types, lint, build de production, puis Lighthouse sur trois pages.",
+        "Le contrôle échoue si la performance passe sous 95, ou si l'accessibilité, les bonnes pratiques ou le SEO passent sous 100.",
+        "Après chaque push sur main, le workflow publie ses scores, et cette page comme le pied de page les lisent à cette source.",
+      ],
+    },
+    {
+      heading: "Deux langues",
+      points: [
+        "Tous les textes sont dans un fichier anglais et un fichier français ; le build échoue s'il manque quoi que ce soit en français.",
+        "Chaque langue a ses propres URL, avec des liens hreflang pour que les moteurs de recherche affichent la bonne.",
+      ],
+    },
+    {
+      heading: "Confidentialité et accessibilité",
+      points: [
+        "Vercel Web Analytics compte les visites sans cookies ; aucun traceur tiers.",
+        "Les réglages de réduction des animations sont respectés, les zones tactiles font au moins 44 px, et tout fonctionne au clavier, y compris la palette Ctrl K.",
+      ],
+    },
+  ],
+};
 
 // ─── 404 ───
 export const NOT_FOUND_TEXT = "Cette page n'existe pas.";

@@ -22,7 +22,7 @@ export default function CaseStudyHeader({ c, study }: { c: Content; study: CaseS
       <dl className="mb-10 grid grid-cols-2 gap-4 sm:grid-cols-4">
         {study.facts.map((f) => (
           <div key={f.label} className="border-l border-white/10 pl-3">
-            <dt className="text-xs uppercase tracking-wider text-gray-500">{f.label}</dt>
+            <dt className="text-xs uppercase tracking-wider text-gray-400">{f.label}</dt>
             <dd className="mt-1 text-sm text-gray-200">{f.value}</dd>
           </div>
         ))}
@@ -33,7 +33,7 @@ export default function CaseStudyHeader({ c, study }: { c: Content; study: CaseS
           <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
           <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
           <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
-          {study.link && <span className="ml-3 truncate text-xs text-gray-500">{study.link.label}</span>}
+          {study.link && <span className="ml-3 truncate text-xs text-gray-400">{study.link.label}</span>}
         </div>
         <div className="relative aspect-[16/10]">
           <Image src={study.image.src} alt={study.image.alt} fill priority sizes="(min-width: 1152px) 1152px, 100vw" className="object-cover object-top" />

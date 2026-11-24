@@ -62,7 +62,7 @@ export default function StatusPanel() {
             <li key={s.id} className="flex items-center justify-between gap-3 rounded-lg bg-white/[0.03] px-3 py-2">
               <span className="min-w-0">
                 <span className="block truncate text-[13px] text-gray-200">{s.name}</span>
-                <span className="block truncate text-[11px] text-gray-500">{s.detail}</span>
+                <span className="block truncate text-[11px] text-gray-400">{s.detail}</span>
               </span>
               <span className="flex flex-shrink-0 items-center gap-1.5 text-[11px] text-gray-300">
                 <span className={`h-2 w-2 rounded-full ${dot}`} />
@@ -73,7 +73,7 @@ export default function StatusPanel() {
         })}
       </ul>
 
-      <p className="mt-3 text-[11px] leading-relaxed text-gray-500">
+      <p className="mt-3 text-[11px] leading-relaxed text-gray-400">
         {time && `${t.checkedAt} ${time} · `}
         {t.footnote}
       </p>

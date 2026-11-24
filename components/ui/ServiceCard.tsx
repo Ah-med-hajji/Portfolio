@@ -1,9 +1,9 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
 import { Code2, Server, ShieldCheck, Boxes, Brain } from "lucide-react";
 import type { ServiceData } from "@/lib/types";
 import { trackSpotlight, SpotlightOverlay } from "@/components/ui/Spotlight";
+import { revealProps } from "@/lib/reveal";
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   Code2,
@@ -20,15 +20,11 @@ interface ServiceCardProps {
 }
 
 export default function ServiceCard({ service, index, className = "" }: ServiceCardProps) {
-  const reduced = useReducedMotion();
   const Icon = iconMap[service.icon] ?? Code2;
 
   return (
-    <motion.div
-      initial={reduced ? { opacity: 0 } : { opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 0.5, delay: reduced ? 0 : (index % 3) * 0.1 }}
+    <div
+      {...revealProps((index % 3) * 0.1)}
       onMouseMove={trackSpotlight}
       className={`group relative flex flex-col rounded-2xl border border-white/5 bg-white/[0.02] p-6 transition-[border-color,box-shadow] duration-300 hover:border-cyan-400/40 hover:shadow-[0_0_20px_rgba(56,189,248,0.15)] ${className}`}
     >
@@ -45,6 +41,6 @@ export default function ServiceCard({ service, index, className = "" }: ServiceC
           </span>
         ))}
       </div>
-    </motion.div>
+    </div>
   );
 }

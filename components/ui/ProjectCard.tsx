@@ -2,10 +2,10 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, ArrowUpRight, Check } from "lucide-react";
 import type { ProjectData } from "@/lib/types";
 import { trackSpotlight, SpotlightOverlay } from "@/components/ui/Spotlight";
+import { revealProps } from "@/lib/reveal";
 
 interface ProjectCardProps {
   project: ProjectData;
@@ -13,7 +13,6 @@ interface ProjectCardProps {
 }
 
 export default function ProjectCard({ project, index }: ProjectCardProps) {
-  const reduced = useReducedMotion();
   const featured = project.featured === true;
 
   const shot = project.image && (
@@ -29,11 +28,8 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
   );
 
   return (
-    <motion.article
-      initial={reduced ? { opacity: 0 } : { opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 0.5, delay: reduced ? 0 : (index % 2) * 0.1 }}
+    <article
+      {...revealProps((index % 2) * 0.1)}
       onMouseMove={trackSpotlight}
       className={`group relative flex flex-col rounded-2xl border border-white/5 bg-white/[0.02] p-6 transition-[border-color,box-shadow] duration-300 hover:border-cyan-400/40 hover:shadow-[0_0_20px_rgba(56,189,248,0.15)] sm:p-8 ${
         featured ? "lg:col-span-2 bg-gradient-to-br from-cyan-400/[0.04] to-purple-400/[0.03]" : ""
@@ -101,6 +97,6 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
           )}
         </div>
       )}
-    </motion.article>
+    </article>
   );
 }

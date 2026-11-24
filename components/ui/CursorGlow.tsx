@@ -1,36 +1,44 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { motion, useSpring } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 
+// Soft glow that eases toward the cursor (desktop only)
 export default function CursorGlow() {
-  const [mounted, setMounted] = useState(false);
-  const springX = useSpring(0, { stiffness: 150, damping: 20 });
-  const springY = useSpring(0, { stiffness: 150, damping: 20 });
+  const [enabled, setEnabled] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Only on non-touch devices
     if (window.matchMedia("(pointer: coarse)").matches) return;
-    setMounted(true);
+    setEnabled(true);
+    const target = { x: 0, y: 0 };
+    const pos = { x: 0, y: 0 };
+    let frame = 0;
 
+    const tick = () => {
+      pos.x += (target.x - pos.x) * 0.15;
+      pos.y += (target.y - pos.y) * 0.15;
+      if (ref.current) ref.current.style.transform = `translate3d(${pos.x - 100}px, ${pos.y - 100}px, 0)`;
+      frame = Math.abs(target.x - pos.x) + Math.abs(target.y - pos.y) > 0.5 ? requestAnimationFrame(tick) : 0;
+    };
     const onMove = (e: MouseEvent) => {
-      springX.set(e.clientX);
-      springY.set(e.clientY);
+      target.x = e.clientX;
+      target.y = e.clientY;
+      if (!frame) frame = requestAnimationFrame(tick);
     };
     window.addEventListener("mousemove", onMove, { passive: true });
-    return () => window.removeEventListener("mousemove", onMove);
-  }, [springX, springY]);
+    return () => {
+      window.removeEventListener("mousemove", onMove);
+      cancelAnimationFrame(frame);
+    };
+  }, []);
 
-  if (!mounted) return null;
-
+  if (!enabled) return null;
   return (
-    <motion.div
-      className="pointer-events-none fixed top-0 left-0 z-[1] h-[200px] w-[200px] -translate-x-1/2 -translate-y-1/2 rounded-full"
-      style={{
-        x: springX,
-        y: springY,
-        background: "radial-gradient(circle, rgba(56,189,248,0.06) 0%, transparent 70%)",
-      }}
+    <div
+      ref={ref}
+      aria-hidden
+      className="pointer-events-none fixed left-0 top-0 z-[1] h-[200px] w-[200px] rounded-full"
+      style={{ background: "radial-gradient(circle, rgba(56,189,248,0.06) 0%, transparent 70%)" }}
     />
   );
 }

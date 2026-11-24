@@ -15,3 +15,8 @@ export const SOCIAL_LINKS: SocialLink[] = [
   { label: "Email", href: `mailto:${EMAIL}`, icon: "Mail", external: false },
 ];
 export const META_URL = "https://ahmed-hajji-it.vercel.app";
+export const REPO_URL = "https://github.com/Ah-med-hajji/Portfolio";
+// Published by .github/workflows/quality.yml after every push to main
+export const LIGHTHOUSE_SCORES_URL = "https://raw.githubusercontent.com/Ah-med-hajji/Portfolio/lighthouse/scores.json";
+export const QUALITY_RUNS_URL = `${REPO_URL}/actions/workflows/quality.yml`;
+export const BUILT_PATH = "/how-its-built";

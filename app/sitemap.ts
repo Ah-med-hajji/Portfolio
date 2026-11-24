@@ -3,7 +3,7 @@ import { getContent } from "@/lib/content";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const c = getContent("en");
-  const pages = ["", ...c.CASE_STUDIES.map((s) => `/work/${s.slug}`)];
+  const pages = ["", ...c.CASE_STUDIES.map((s) => `/work/${s.slug}`), c.BUILT_PATH];
   return pages.map((path) => ({
     url: `${c.META_URL}${path}`,
     lastModified: new Date(),
